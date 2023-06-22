@@ -15,10 +15,11 @@ Another benefit is that is can be a low risk method of revenue for a business as
 
 ### <u>Why solve this problem?</u>
 
-talk about the increase of board gaming as a hobby
-increase of board game sizes and prices
-boom of kickstarter games
-show some studies on the cognitive benefit of board gaming
+As of 2022, the board game industry pulled in \$3.13 billion in revenue with an projection of increase to \$3.63 billion in 2023. This shows that board gaming as an industry is increasing at a high level, where 57% of gamers in a survey indicating that they own between 1-25 board/card games with 22% of total people surveyed spending over \$1,000 each year on new games (Georgiev, 2023).   
+
+Not only is board gaming booming as a business, it also brings with it potential medical benefits. A literature review supplied by BioPsychoSocial Medicine indicates that out of 83 relevent articles, there have been multiple randomized trials that show evidence where more traditional board games, like chess, have shown to reduce depression and improve cognitive impairment (Nakao, 2019). It also helps to promote teamwork between people, stimulate creativity, enhance problem-solving and critical thinking and is an excellent tool for social interaction.   
+
+As explored, we have discussed that not only is boardgaming a viable business, it also brings with it positive health and social benefits. However as not everyone has the space or money to spend on board games, this is where a rental service for board games that could provide a larger network so that people are able to access the hobby at low cost.
 
 ### <u>The choice of PostgreSQL and the drawbacks compared to other database systems</u>
 
@@ -67,5 +68,13 @@ User stories
 
 
 #### <u>References</u>
+
+Georgiev, D., 2023. 13 Board Game Statistics - All You Need to Know in 2023. [Online] 
+Available at: https://techjury.net/blog/board-game-statistics/
+[Accessed 22 June 2023].   
+
+Nakao, M., 2019. Special series on “effects of board games on health education and promotion” board games as a promising tool for health promotion: a review of recent literature. [Online] 
+Available at: https://bpsmedicine.biomedcentral.com/articles/10.1186/s13030-019-0146-3
+[Accessed 22 June 2023].
 
 
