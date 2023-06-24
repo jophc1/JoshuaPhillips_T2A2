@@ -178,8 +178,37 @@ def seed_db():
     db.session.add_all(rentals)
     db.session.commit()
     
+    
+    rent_games = [games[0], games[4], games[2], games[1]]
+    rental_stores = [get_store(rent_games[x].store_id) for x in range(len(rent_games))]
+    quantities = [1, 2, 1, 2]
+    rentees = [rentals[1], rentals[3], rentals[0], rentals[2]]
+
+    db.session.query(GameRentDetail).delete()
+    
+    for index in range(len(rent_games)):
+        rental_detail = GameRentDetail(
+                game_id = rent_games[index].id,
+                rental_id = rentees[index].id,
+                game_name = rent_games[index].name,
+                price_per_week = rent_games[index].price_per_week,
+                quantity = quantities[index],
+                store_name = rental_stores[index].name,
+                store_street_number = rental_stores[index].street_number,
+                store_street_name = rental_stores[index].street_name,
+                store_suburb = rental_stores[index].suburb,
+                store_postcode = rental_stores[index].postcode
+        )
+        db.session.add(rental_detail)
+    
+    db.session.commit()
+    
+    # seeding for designer, category, game_designer, game_category to do tomorrow
+    
     print('Tables seeded')
     
 
-
+def get_store(store_id):
+    stmt = db.select(Store).filter_by(id=store_id)
+    return db.session.scalar(stmt)
 

@@ -1,6 +1,19 @@
 from init import db, ma
 
 class GameRentDetail(db.Model):
+    """
+    Model for GameRentDetail, fields are (field name, field type, requirement?):
+    [game_id, int, required]
+    [rental_id, int, required]
+    [game_name, string, required]
+    [price_per_week, float, required]
+    [quantity, int, required]
+    [store_name, string, required]
+    [store_street_number, int, required]
+    [store_street_name, string, required]
+    [store_suburb, string, required]
+    [store_postcode, int, required]
+    """
     __tablename__ = 'game_rent_details'
     # primary key
     id = db.Column(db.Integer, primary_key=True)
