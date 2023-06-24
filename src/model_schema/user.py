@@ -1,6 +1,15 @@
 from init import db, ma
 
+
 class User(db.Model):
+    """
+    Model for User, fields are (field name, field type, requirement?):
+    [first_name, string, required]
+    [last_name, string, required]
+    [email, string, required]
+    [password, string, required]
+    [admin, boolean, default=False]
+    """
     __tablename__ = 'users'
     # primary key
     id = db.Column(db.Integer, primary_key=True)
