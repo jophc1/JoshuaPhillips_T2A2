@@ -1,4 +1,5 @@
 from init import db, ma
+from marshmallow import fields
 
 class Store(db.Model):
     """
@@ -27,12 +28,13 @@ class Store(db.Model):
     # foreign keys
     
     # field relationships
-    
+    games = db.relationship('Game', backref='store', cascade='all, delete')
 
 class StoreSchema(ma.Schema):
-
+    games = fields.List(fields.Nested('GameSchema', exclude=['store']))
 
     class Meta:
         ordered = True
-        fields = ('id', 'name', 'street_number', 'street_name', 'suburb', 'postcode', 'phone', 'email', 'password', 'admin')
+        fields = ('id', 'name', 'street_number', 'street_name', 'suburb', 
+                  'postcode', 'email', 'password', 'admin','games')
         load_only = ('password, admin')

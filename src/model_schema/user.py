@@ -1,4 +1,5 @@
 from init import db, ma
+from marshmallow import fields
 
 
 class User(db.Model):
@@ -22,12 +23,12 @@ class User(db.Model):
     # foreign keys
     
     # field relationships
-    
+    games = db.relationship('Game', backref='owner', cascade='all, delete')
 
 class UserSchema(ma.Schema):
-
+    games = fields.List(fields.Nested('GameSchema', exclude=['game_rent_details','owner']))
 
     class Meta:
         ordered = True
-        fields = ('id', 'first_name', 'last_name', 'email', 'password', 'admin')
+        fields = ('id', 'first_name', 'last_name', 'email', 'password', 'admin', 'games')
         load_only = ('password, admin')

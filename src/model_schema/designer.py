@@ -16,7 +16,7 @@ class Designer(db.Model):
     # foreign keys
    
     # field relationships
-    game_designers = db.relationship('GameDesigner', backref='designer')
+    game_designers = db.relationship('GameDesigner', backref='designer', cascade='all, delete')
 
 class DesignerSchema(ma.Schema):
     game_designers = fields.List(fields.Nested('GameDesignerSchema', exclude=['designer']))

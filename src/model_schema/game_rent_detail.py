@@ -1,4 +1,5 @@
 from init import db, ma
+from marshmallow import fields
 
 class GameRentDetail(db.Model):
     """
@@ -33,9 +34,11 @@ class GameRentDetail(db.Model):
     # field relationships
     
 class GameRentDetailSchema(ma.Schema):
-
-
+    game = fields.Nested('GameSchema', only=['id']) #may not need this schema field
+    rental = fields.Nested('RentalSchema', exclude=['game_rent_details'])
+    
     class Meta:
         ordered = True
         fields = ('id', 'game_name', 'price_per_week', 'quantity', 'store_name', 
-                  'store_street_number', 'store_street_name', 'store_suburb', 'store_postcode')
+                  'store_street_number', 'store_street_name', 'store_suburb', 
+                  'store_postcode', 'game', 'rental') # 'game' may not be needed

@@ -1,4 +1,5 @@
 from init import db, ma
+from marshmallow import fields
 
 class Game(db.Model):
     """
@@ -26,12 +27,19 @@ class Game(db.Model):
     owner_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='Cascade'), nullable=False)
     
     # field relationships
-    
+    game_designers = db.relationship('GameDesigner', backref='game', cascade='all, delete')
+    game_categories = db.relationship('GameCategory', backref='game', cascade='all, delete')
+    game_rent_details = db.relationship('GameRentDetail', backref='game')
 
 class GameSchema(ma.Schema):
-
-
+    game_designers = fields.List(fields.Nested('GameDesignerSchema', only=['designer']))
+    game_categories = fields.List(fields.Nested('GameCategorySchema', only=['category']))
+    store = fields.Nested('StoreSchema', exclude=['games'])
+    game_rent_details = fields.List(fields.Nested('GameRentDetailSchema', only=['id'])) #might not need this schema field
+    owner = fields.Nested('UserSchema', exclude=['games'])
+    
     class Meta:
         ordered = True
-        fields = ('id', 'name', 'year', 'min_age', 'price_per_week', 'quantity')
-        load_only = ('password, admin')
+        fields = ('id', 'name', 'year', 'min_age', 'price_per_week', 'quantity', 
+                  'game_designers', 'game_categories', 'store', 'game_rent_details', 'owner') #game_rent_details may not be needed
+        

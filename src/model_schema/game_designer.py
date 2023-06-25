@@ -13,14 +13,15 @@ class GameDesigner(db.Model):
     # field names
     
     # foreign keys
-    designer_id = db.Column(db.Integer, db.ForeignKey('designers.id', ondelete='SET NULL'))
+    designer_id = db.Column(db.Integer, db.ForeignKey('designers.id', ondelete='Cascade'), nullable=False)
     game_id = db.Column(db.Integer, db.ForeignKey('games.id', ondelete='Cascade'), nullable=False)
     # field relationships
     
 
 class GameDesignerSchema(ma.Schema):
     designer = fields.Nested('DesignerSchema', exclude=['game_designers'])
-
+    game = fields.Nested('GameSchema', exclude=['game_designers'])
+    
     class Meta:
         ordered = True
-        fields = ('id', 'designer_id', 'game_id', 'designer')
+        fields = ('id', 'designer','game')

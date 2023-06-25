@@ -1,4 +1,5 @@
 from init import db, ma
+from marshmallow import fields
 
 class Rental(db.Model):
     """
@@ -20,11 +21,12 @@ class Rental(db.Model):
     # foreign keys
     rentee_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='SET NULL'))
     # field relationships
-    
+    game_rent_details = db.relationship('GameRentDetail', backref='rental', cascade='all, delete')
 
 class RentalSchema(ma.Schema):
-
+    game_rent_details = fields.List(fields.Nested('GameRentDetailSchema', exclude=['rental']))
 
     class Meta:
         ordered = True
-        fields = ('id', 'date', 'rentee_first_name', 'rentee_last_name', 'rentee_email', 'rentee_id')
+        fields = ('id', 'date', 'rentee_id','rentee_first_name', 
+                  'rentee_last_name', 'rentee_email', 'game_rent_details')

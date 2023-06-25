@@ -16,7 +16,7 @@ class Category(db.Model):
     # foreign keys
    
     # field relationships
-    game_categories = db.relationship('GameCategory', backref='category')
+    game_categories = db.relationship('GameCategory', backref='category', cascade='all, delete')
     
 
 class CategorySchema(ma.Schema):
