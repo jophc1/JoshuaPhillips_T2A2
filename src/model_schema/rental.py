@@ -25,7 +25,8 @@ class Rental(db.Model):
 
 class RentalSchema(ma.Schema):
     game_rent_details = fields.List(fields.Nested('GameRentDetailSchema', exclude=['rental']))
-
+    # rentee = fields.Nested('UserSchema', only=['id']) #may not be needed
+    
     class Meta:
         ordered = True
         fields = ('id', 'date', 'rentee_id','rentee_first_name', 

@@ -24,11 +24,16 @@ class User(db.Model):
     
     # field relationships
     games = db.relationship('Game', backref='owner', cascade='all, delete')
+    game_rent_details = db.relationship('GameRentDetail', backref='rentee')
 
 class UserSchema(ma.Schema):
     games = fields.List(fields.Nested('GameSchema', exclude=['game_rent_details','owner']))
+    game_rent_details = fields.List(fields.Nested('GameRentDetailSchema', exclude=['rentee', 'rentee_first_name', 
+                                                                                   'rentee_last_name', 
+                                                                                   'rentee_email', 'rentee_id']))
 
     class Meta:
         ordered = True
-        fields = ('id', 'first_name', 'last_name', 'email', 'password', 'admin', 'games')
+        fields = ('id', 'first_name', 'last_name', 'email', 
+                  'password', 'admin', 'games', 'game_rent_details')
         load_only = ('password, admin')

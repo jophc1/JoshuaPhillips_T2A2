@@ -6,7 +6,6 @@ from model_schema.game import Game
 from model_schema.game_category import GameCategory
 from model_schema.game_designer import GameDesigner
 from model_schema.game_rent_detail import GameRentDetail
-from model_schema.rental import Rental
 from model_schema.store import Store
 from model_schema.user import User
 
@@ -145,54 +144,24 @@ def seed_db():
     db.session.add_all(games)
     db.session.commit()
     
-    # Seeding rentals table in database
-    rentals = [
-        Rental(
-        date = '2023/05/25',
-        rentee_id = users[1].id,
-        rentee_first_name = users[1].first_name,
-        rentee_last_name = users[1].last_name,
-        rentee_email = users[1].email
-    ),
-        Rental(
-        date = '2023/06/18',
-        rentee_id = users[2].id,
-        rentee_first_name = users[2].first_name,
-        rentee_last_name = users[2].last_name,
-        rentee_email = users[2].email
-    ),
-        Rental(
-        date = '2023/06/19',
-        rentee_id = users[1].id,
-        rentee_first_name = users[1].first_name,
-        rentee_last_name = users[1].last_name,
-        rentee_email = users[1].email
-    ),
-        Rental(
-        date = '2023/06/25',
-        rentee_id = users[3].id,
-        rentee_first_name = users[3].first_name,
-        rentee_last_name = users[3].last_name,
-        rentee_email = users[3].email
-    )
-    ]
     
-    db.session.query(Rental).delete()
-    db.session.add_all(rentals)
-    db.session.commit()
-    
-    # Seeding rental_details table in database
+    # Seeding game_rent_details table in database
+    dates = ['2023/05/25', '2023/06/18', '2023/06/19', '2023/06/25']
+    rentees = [users[2], users[3], users[1], users[1]]
     rent_games = [games[0], games[4], games[2], games[1]]
     rental_stores = [get_store(rent_games[x].store_id) for x in range(len(rent_games))]
     quantities = [1, 2, 1, 2]
-    rentees = [rentals[1], rentals[3], rentals[0], rentals[2]]
 
     db.session.query(GameRentDetail).delete()
     
     for index in range(len(rent_games)):
         rental_detail = GameRentDetail(
+                date = dates[index], 
+                rentee_id = rentees[index].id,
+                rentee_first_name = rentees[index].first_name,
+                rentee_last_name = rentees[index].last_name,
+                rentee_email = rentees[index].email,
                 game_id = rent_games[index].id,
-                rental_id = rentees[index].id,
                 game_name = rent_games[index].name,
                 price_per_week = rent_games[index].price_per_week,
                 quantity = quantities[index],
