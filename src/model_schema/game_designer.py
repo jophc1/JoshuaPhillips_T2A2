@@ -1,6 +1,12 @@
 from init import db, ma
+from marshmallow import fields
 
 class GameDesigner(db.Model):
+    """
+    Model for GameDesigner, fields are (field name, field type, requirement?):
+    [designer_id, int, required]
+    [game_id, int, required]
+    """
     __tablename__ = 'game_designers'
     # primary key
     id = db.Column(db.Integer, primary_key=True)
@@ -13,8 +19,8 @@ class GameDesigner(db.Model):
     
 
 class GameDesignerSchema(ma.Schema):
-
+    designer = fields.Nested('DesignerSchema', exclude=['game_designers'])
 
     class Meta:
         ordered = True
-        fields = ('id', 'designer_id', 'game_id')
+        fields = ('id', 'designer_id', 'game_id', 'designer')

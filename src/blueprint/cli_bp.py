@@ -24,7 +24,7 @@ def drop_db():
     
 @db_commands.cli.command('seed')
 def seed_db():
-    
+    # Seeding users table in database   
     users = [
         User(
         first_name = 'John',
@@ -57,6 +57,7 @@ def seed_db():
     db.session.add_all(users)
     db.session.commit()
     
+    # Seeding stores table in database
     stores = [
         Store(
             name = 'Play more games Inc',
@@ -91,6 +92,7 @@ def seed_db():
     db.session.add_all(stores)
     db.session.commit()
     
+    # Seeding games table in database
     games = [
         Game(
             name = 'Blood Rage',
@@ -143,6 +145,7 @@ def seed_db():
     db.session.add_all(games)
     db.session.commit()
     
+    # Seeding rentals table in database
     rentals = [
         Rental(
         date = '2023/05/25',
@@ -178,7 +181,7 @@ def seed_db():
     db.session.add_all(rentals)
     db.session.commit()
     
-    
+    # Seeding rental_details table in database
     rent_games = [games[0], games[4], games[2], games[1]]
     rental_stores = [get_store(rent_games[x].store_id) for x in range(len(rent_games))]
     quantities = [1, 2, 1, 2]
@@ -203,7 +206,120 @@ def seed_db():
     
     db.session.commit()
     
-    # seeding for designer, category, game_designer, game_category to do tomorrow
+    # Seeding designers table in database
+    designers = [
+        Designer(
+            first_name = 'Eric',
+            last_name = 'Lang'
+    ),
+        Designer(
+            first_name = 'Donald',
+            last_name = 'Vaccarino'
+    ),
+        Designer(
+            first_name = 'Alan',
+            last_name = 'Moon'
+    ),
+        Designer(
+            first_name = 'Matt',
+            last_name = 'Leecock'
+    ),
+        Designer(
+            first_name = 'Klaus-Jurgen',
+            last_name = 'Wrede'
+    )
+    ]
+    
+    db.session.query(Designer).delete()
+    db.session.add_all(designers)
+    db.session.commit()
+    
+    # Seeding game_designers table in database
+    game_designers = [
+        GameDesigner(
+            designer_id = designers[0].id,
+            game_id = games[0].id
+    ),
+        GameDesigner(
+            designer_id = designers[1].id,
+            game_id = games[1].id
+    ),
+        GameDesigner(
+            designer_id = designers[2].id,
+            game_id = games[2].id
+    ),
+        GameDesigner(
+            designer_id = designers[3].id,
+            game_id = games[3].id
+    ),
+        GameDesigner(
+            designer_id = designers[4].id,
+            game_id = games[4].id
+    )
+    ]
+    
+    db.session.query(GameDesigner).delete()
+    db.session.add_all(game_designers)
+    db.session.commit()
+    
+    # Seeding categories table in database
+    categories = [
+        Category(
+            name = 'deck building'
+    ),
+        Category(
+            name = 'worker placement'
+    ),
+        Category(
+            name = 'abstract'
+    ),
+        Category(
+            name = 'euro'
+    ),
+        Category(
+            name = 'wargame'
+    )
+    ]
+    
+    db.session.query(Category).delete()
+    db.session.add_all(categories)
+    db.session.commit()
+    
+    # Seeding game_categories table in database
+    game_categories = [
+        GameCategory(
+            category_id = categories[1].id,
+            game_id = games[0].id
+    ),
+        GameCategory(
+            category_id = categories[4].id,
+            game_id = games[0].id
+    ),
+        GameCategory(
+            category_id = categories[0].id,
+            game_id = games[1].id
+    ),
+        GameCategory(
+            category_id = categories[1].id,
+            game_id = games[2].id
+    ),
+        GameCategory(
+            category_id = categories[3].id,
+            game_id = games[2].id
+    ),
+        GameCategory(
+            category_id = categories[2].id,
+            game_id = games[3].id
+    ),
+        GameCategory(
+            category_id = categories[3].id,
+            game_id = games[4].id
+    )
+    ]
+    
+    db.session.query(GameCategory).delete()
+    db.session.add_all(game_categories)
+    db.session.commit()
     
     print('Tables seeded')
     
