@@ -89,6 +89,37 @@ def login_store():
     
     return {'store': StoreSchema(only=['email']).dump(store), 'token': token}
 
+@accounts.route('/user', methods=['PUT', 'PATCH'])
+@jwt_required()
+def update_user():
+    jwt_identity = get_jwt_identity()
+    
+    user = User.query.filter_by(email=jwt_identity[1]).first()
+    
+    if not user:
+        return {'error': 'User not found'}, 404
+    
+    user_info = UserSchema().load(request.json)
+    
+    user.first_name = user_info.get('first_name', user.first_name)
+    user.last_name = user_info.get('last_name', user.last_name)
+    
+    db.session.commit()
+    
+    return UserSchema(only=['first_name','last_name']).dump(user)
+
+# route to update store details
+
+# route to delete user
+
+# route to delete store
+
+# route to view all games owned by a store (using jwt identity)
+
+# get all users (admin only)
+
+# get all stores (admin only)    
+
 def is_admin():
     jwt_admin = get_jwt_identity()
     
