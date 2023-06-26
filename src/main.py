@@ -3,10 +3,12 @@ from init import db, ma, jwt, bcrypt
 from os import environ
 
 from blueprint.cli_bp import db_commands
+from blueprint.auth_bp import accounts
 
 
 registerable_blueprints = [
-    db_commands
+    db_commands,
+    accounts
 ]
 
 def setup_app():
