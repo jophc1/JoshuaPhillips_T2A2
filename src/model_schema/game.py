@@ -36,7 +36,7 @@ class GameSchema(ma.Schema):
     game_categories = fields.List(fields.Nested('GameCategorySchema', only=['category']))
     store = fields.Nested('StoreSchema', exclude=['games'])
     game_rent_details = fields.List(fields.Nested('GameRentDetailSchema', only=['id'])) #might not need this schema field
-    owner = fields.Nested('UserSchema', exclude=['games'])
+    owner = fields.Nested('UserSchema', exclude=['games', 'game_rent_details'])
     
     class Meta:
         ordered = True

@@ -1,6 +1,6 @@
 from init import db, bcrypt
-from flask import Blueprint, request
-from flask_jwt_extended import create_access_token, jwt_required
+from flask import Blueprint, request, abort
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from model_schema.user import User, UserSchema
 from model_schema.store import Store, StoreSchema
 from datetime import timedelta
@@ -32,10 +32,10 @@ def user_register():
 
 
 @accounts.route('/register/store', methods=['POST'])
-# @jwt_required()
+@jwt_required()
 def store_register():
     # only an admin can create a store
-    # is_admin()
+    is_admin()
     
     store_info = StoreSchema().load(request.json)
     email_user_test = User.query.filter_by(email=store_info['email']).first()
@@ -75,5 +75,43 @@ def login_user():
     
     return {'user': UserSchema(only=['email']).dump(user), 'token': token}
 
-# login store next
-        
+@accounts.route('/login/store', methods=['POST'])
+def login_store():
+    
+    store_info = StoreSchema().load(request.json)
+    
+    store = Store.query.filter_by(email=store_info['email']).first()
+    
+    if not(store and bcrypt.check_password_hash(store.password, store_info['password'])):
+        return {'error': 'email or password incorrect'}, 401
+    
+    token = create_access_token(identity=[store.id, store.email], expires_delta=timedelta(minutes=180))
+    
+    return {'store': StoreSchema(only=['email']).dump(store), 'token': token}
+
+def is_admin():
+    jwt_admin = get_jwt_identity()
+    
+    user = User.query.filter_by(id=jwt_admin[0]).first()    
+    
+    if not (user and user.admin):
+           abort(401, description='must be admin')
+
+# def is_user_or_admin(user_input_id):
+    
+#     jwt_user = get_jwt_identity()
+    
+#     user = User.query.filter_by(id=jwt_user[0]).first()
+    
+#     if not (user and (user.admin or user.id == user_input_id)):
+#          abort(401, description='must be admin or user')
+         
+def is_store_or_admin(store_id):
+    
+    jwt_identity = get_jwt_identity()
+    
+    store = Store.query.filter_by(id=jwt_identity[0]).first()
+    user = User.query.filter_by(id=jwt_identity[0]).first()
+    
+    if not ((store and store.id == store_id) or (user and user.admin)):
+         abort(401, description='must be admin or store')

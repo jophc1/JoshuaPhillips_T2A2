@@ -11,7 +11,6 @@ class Store(db.Model):
     [postcode, int, required]
     [email, string, required]
     [password, string, required]
-    [admin, boolean, default=False]
     """
     __tablename__ = 'stores'
     # primary key
@@ -24,7 +23,6 @@ class Store(db.Model):
     postcode = db.Column(db.Integer, nullable=False)
     email = db.Column(db.String, nullable=False, unique=True)
     password = db.Column(db.String, nullable=False)
-    admin = db.Column(db.Boolean, default=False)
     # foreign keys
     
     # field relationships
@@ -36,5 +34,5 @@ class StoreSchema(ma.Schema):
     class Meta:
         ordered = True
         fields = ('id', 'name', 'street_number', 'street_name', 'suburb', 
-                  'postcode', 'email', 'password', 'admin','games')
-        load_only = ('password, admin')
+                  'postcode', 'email', 'password', 'games')
+        load_only = ('password')
