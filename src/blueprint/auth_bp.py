@@ -7,6 +7,7 @@ from datetime import timedelta
 
 accounts = Blueprint('account', __name__)
 
+# route to create a new user account
 @accounts.route('/register/user', methods=['POST'])
 def user_register():
     user_info = UserSchema().load(request.json)
@@ -30,11 +31,10 @@ def user_register():
     
     return {'user': UserSchema(only=['email', 'first_name', 'last_name']).dump(user), 'token': token}
 
-
+# route to register a new store account (admin access required)
 @accounts.route('/register/store', methods=['POST'])
 @jwt_required()
 def store_register():
-    # only an admin can create a store
     is_admin()
     
     store_info = StoreSchema().load(request.json)
@@ -61,6 +61,7 @@ def store_register():
     
     return {'store': StoreSchema(only=['name', 'email']).dump(store), 'token': token}
 
+# route to login through user account
 @accounts.route('/login/user', methods=['POST'])
 def login_user():
     
@@ -75,6 +76,7 @@ def login_user():
     
     return {'user': UserSchema(only=['email']).dump(user), 'token': token}
 
+# route to login through store account
 @accounts.route('/login/store', methods=['POST'])
 def login_store():
     
@@ -89,6 +91,7 @@ def login_store():
     
     return {'store': StoreSchema(only=['email']).dump(store), 'token': token}
 
+# route to update user details
 @accounts.route('/user', methods=['PUT', 'PATCH'])
 @jwt_required()
 def update_user():
@@ -153,7 +156,7 @@ def delete_user():
     db.session.commit()
     return {}, 200
     
-# route to delete a specific user (admin only)
+# route to delete a specific user (admin access required)
 @accounts.route('/users/<int:user_id>', methods=['DELETE'])
 @jwt_required()
 def delete_user_id(user_id):
@@ -185,7 +188,7 @@ def delete_store():
     db.session.commit()
     return {}, 200
 
-#route to delete specific store (admin only)
+#route to delete specific store (admin access required)
 @accounts.route('/stores/<int:store_id>', methods=['DELETE'])
 @jwt_required()
 def delete_store_id(store_id):
@@ -200,13 +203,25 @@ def delete_store_id(store_id):
     db.session.commit()
     return {}, 200
 
-# route to view all games owned by a store (using jwt identity)
+# route to get all users (admin only)
+@accounts.route('/users')
+@jwt_required()
+def get_users():
+    is_admin()
+    
+    users = User.query.all()
+    return UserSchema(many=True, only=['id','first_name', 'last_name', 'email']).dump(users)
 
-# get all users (admin only)
+# route to get all stores (admin only)    
+@accounts.route('/stores')
+@jwt_required()
+def get_stores():
+    is_admin()
+    
+    stores = Store.query.all()
+    return StoreSchema(many=True, exclude=['password', 'games']).dump(stores)
 
-# get all stores (admin only)    
-
-
+# function to check if jwt owner is an administrator
 def is_admin():
     jwt_admin = get_jwt_identity()
     
@@ -214,6 +229,15 @@ def is_admin():
     
     if not (user and user.admin):
            abort(401, description='must be admin')
+
+# function to check if jwt owner is a store account
+def is_store():
+    jwt_identity = get_jwt_identity()
+    
+    store = Store.query.filter_by(email=jwt_identity[1]).first()
+    
+    if not store:
+        abort(401, description='must be a store account')
 
 # def is_user_or_admin(user_input_id):
     
@@ -223,7 +247,8 @@ def is_admin():
     
 #     if not (user and (user.admin or user.id == user_input_id)):
 #          abort(401, description='must be admin or user')
-         
+
+# function to check if input store id is same as jwt identity store id, else admin can also be used         
 def is_store_or_admin(store_id):
     
     jwt_identity = get_jwt_identity()
