@@ -97,7 +97,7 @@ def update_user():
     user = User.query.filter_by(email=jwt_identity[1]).first()
     
     if not user:
-        return {'error': 'User not found'}, 404
+        return {'error': 'not a User account'}, 404
     
     user_info = UserSchema().load(request.json)
     
@@ -109,16 +109,103 @@ def update_user():
     return UserSchema(only=['first_name','last_name']).dump(user)
 
 # route to update store details
+@accounts.route('/store', methods=['PUT', 'PATCH'])
+@jwt_required()
+def update_store():
+    jwt_identity = get_jwt_identity()
+    
+    store = Store.query.filter_by(email=jwt_identity[1]).first()
+    
+    if not store:
+        return {'error': 'not a Store account'}, 401
+    
+    store_info = StoreSchema().load(request.json)
+    
+    store.name = store_info.get('name', store.name)
+    store.street_number = store_info.get('street_number', store.street_number)
+    store.street_name = store_info.get('street_name', store.street_name)
+    store.suburb = store_info.get('suburb', store.suburb)
+    store.postcode = store_info.get('postcode', store.postcode)
+    store.email = store_info.get('email', store.email)
+           
+    db.session.commit()
+    
+    if store_info.get('email'):
+        token = create_access_token(identity=[store.id, store.email], expires_delta=timedelta(minutes=180))
+        return {'store': StoreSchema(exclude=['games', 'password']).dump(store), 'token': token}
+    
+    return StoreSchema(exclude=['games', 'password']).dump(store)
+    
+# route to allow user to delete themselves
+@accounts.route('/user', methods=['DELETE'])
+@jwt_required()
+def delete_user():
+    jwt_identity = get_jwt_identity()
+    
+    user = User.query.filter_by(email=jwt_identity[1]).first()
+    
+    if not user:
+        return {'error': 'not a User account'}, 401
+    elif user.admin:
+        return {'error': 'Cannot delete admin account'}, 401
+    
+    db.session.delete(user)
+    db.session.commit()
+    return {}, 200
+    
+# route to delete a specific user (admin only)
+@accounts.route('/users/<int:user_id>', methods=['DELETE'])
+@jwt_required()
+def delete_user_id(user_id):
+    is_admin()
+     
+    user = User.query.filter_by(id=user_id).first()
+    
+    if not user:
+        return {'error': 'no user account by that id'}, 404
+    elif user.admin:
+        return {'error': 'Cannot delete admin account'}, 401
+    
+    db.session.delete(user)
+    db.session.commit()
+    return {}, 200
 
-# route to delete user
+# route to allow store to delete themselves
+@accounts.route('/store', methods=['DELETE'])
+@jwt_required()
+def delete_store():
+    jwt_identity = get_jwt_identity()
+    
+    store = Store.query.filter_by(email=jwt_identity[1]).first()
+    
+    if not store:
+        return {'error': 'not a store account'}, 401
+    
+    db.session.delete(store)
+    db.session.commit()
+    return {}, 200
 
-# route to delete store
+#route to delete specific store (admin only)
+@accounts.route('/stores/<int:store_id>', methods=['DELETE'])
+@jwt_required()
+def delete_store_id(store_id):
+    is_admin()
+     
+    store = Store.query.filter_by(id=store_id).first()
+    
+    if not store:
+        return {'error': 'no store account by that id'}, 404
+    
+    db.session.delete(store)
+    db.session.commit()
+    return {}, 200
 
 # route to view all games owned by a store (using jwt identity)
 
 # get all users (admin only)
 
 # get all stores (admin only)    
+
 
 def is_admin():
     jwt_admin = get_jwt_identity()
