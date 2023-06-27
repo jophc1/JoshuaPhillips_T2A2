@@ -230,7 +230,6 @@ def is_admin():
     if not (user and user.admin):
            abort(401, description='must be admin')
     
-    return jwt_admin[0]
 
 # function to check if jwt owner is a store account
 def is_store():
@@ -241,6 +240,7 @@ def is_store():
     if not store:
         abort(401, description='must be a store account')
 
+    return jwt_identity[0]
 # def is_user_or_admin(user_input_id):
     
 #     jwt_user = get_jwt_identity()
