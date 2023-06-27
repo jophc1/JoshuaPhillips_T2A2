@@ -36,4 +36,4 @@ class UserSchema(ma.Schema):
         ordered = True
         fields = ('id', 'first_name', 'last_name', 'email', 
                   'password', 'admin', 'games', 'game_rent_details')
-        load_only = ('password, admin')
+        

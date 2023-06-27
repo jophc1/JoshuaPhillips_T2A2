@@ -35,4 +35,4 @@ class StoreSchema(ma.Schema):
         ordered = True
         fields = ('id', 'name', 'street_number', 'street_name', 'suburb', 
                   'postcode', 'email', 'password', 'games')
-        load_only = ('password')
+        

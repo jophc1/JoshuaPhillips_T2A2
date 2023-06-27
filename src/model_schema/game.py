@@ -5,7 +5,7 @@ class Game(db.Model):
     """
     Model for Game, fields are (field name, field type, requirement?):
     [name, string, required]
-    [year, int, optional]
+    [year, int, required]
     [min_age, int, required]
     [price_per_week, float, required]
     [quantity, int, required]
@@ -17,7 +17,7 @@ class Game(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     # field names
     name = db.Column(db.String, nullable=False)
-    year = db.Column(db.Integer)
+    year = db.Column(db.Integer, nullable=False)
     min_age = db.Column(db.Integer, nullable=False)
     price_per_week = db.Column(db.Float, nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
@@ -34,9 +34,9 @@ class Game(db.Model):
 class GameSchema(ma.Schema):
     game_designers = fields.List(fields.Nested('GameDesignerSchema', only=['designer']))
     game_categories = fields.List(fields.Nested('GameCategorySchema', only=['category']))
-    store = fields.Nested('StoreSchema', exclude=['games'])
+    store = fields.Nested('StoreSchema', exclude=['games', 'password'])
     game_rent_details = fields.List(fields.Nested('GameRentDetailSchema', only=['id'])) #might not need this schema field
-    owner = fields.Nested('UserSchema', exclude=['games', 'game_rent_details'])
+    owner = fields.Nested('UserSchema', exclude=['games', 'game_rent_details', 'password', 'admin'])
     
     class Meta:
         ordered = True

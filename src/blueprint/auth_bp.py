@@ -29,7 +29,7 @@ def user_register():
     
     token = create_access_token(identity=[user.id, user.email], expires_delta=timedelta(minutes=180))
     
-    return {'user': UserSchema(only=['email', 'first_name', 'last_name']).dump(user), 'token': token}
+    return {'user': UserSchema(only=['email', 'first_name', 'last_name']).dump(user), 'token': token}, 201
 
 # route to register a new store account (admin access required)
 @accounts.route('/register/store', methods=['POST'])
@@ -59,7 +59,7 @@ def store_register():
     
     token = create_access_token(identity=[store.id, store.email], expires_delta=timedelta(minutes=180))
     
-    return {'store': StoreSchema(only=['name', 'email']).dump(store), 'token': token}
+    return {'store': StoreSchema(only=['name', 'email']).dump(store), 'token': token}, 201
 
 # route to login through user account
 @accounts.route('/login/user', methods=['POST'])
@@ -74,7 +74,7 @@ def login_user():
     
     token = create_access_token(identity=[user.id, user.email], expires_delta=timedelta(minutes=180))
     
-    return {'user': UserSchema(only=['email']).dump(user), 'token': token}
+    return {'user': UserSchema(only=['email']).dump(user), 'token': token}, 200
 
 # route to login through store account
 @accounts.route('/login/store', methods=['POST'])
@@ -89,7 +89,7 @@ def login_store():
     
     token = create_access_token(identity=[store.id, store.email], expires_delta=timedelta(minutes=180))
     
-    return {'store': StoreSchema(only=['email']).dump(store), 'token': token}
+    return {'store': StoreSchema(only=['email']).dump(store), 'token': token}, 200
 
 # route to update user details
 @accounts.route('/user', methods=['PUT', 'PATCH'])
@@ -109,7 +109,7 @@ def update_user():
     
     db.session.commit()
     
-    return UserSchema(only=['first_name','last_name']).dump(user)
+    return UserSchema(only=['first_name','last_name']).dump(user), 200
 
 # route to update store details
 @accounts.route('/store', methods=['PUT', 'PATCH'])
@@ -137,7 +137,7 @@ def update_store():
         token = create_access_token(identity=[store.id, store.email], expires_delta=timedelta(minutes=180))
         return {'store': StoreSchema(exclude=['games', 'password']).dump(store), 'token': token}
     
-    return StoreSchema(exclude=['games', 'password']).dump(store)
+    return StoreSchema(exclude=['games', 'password']).dump(store), 200
     
 # route to allow user to delete themselves
 @accounts.route('/user', methods=['DELETE'])
@@ -210,7 +210,7 @@ def get_users():
     is_admin()
     
     users = User.query.all()
-    return UserSchema(many=True, only=['id','first_name', 'last_name', 'email']).dump(users)
+    return UserSchema(many=True, only=['id','first_name', 'last_name', 'email']).dump(users), 200
 
 # route to get all stores (admin only)    
 @accounts.route('/stores')
@@ -219,7 +219,7 @@ def get_stores():
     is_admin()
     
     stores = Store.query.all()
-    return StoreSchema(many=True, exclude=['password', 'games']).dump(stores)
+    return StoreSchema(many=True, exclude=['password', 'games']).dump(stores), 200
 
 # function to check if jwt owner is an administrator
 def is_admin():
@@ -229,6 +229,8 @@ def is_admin():
     
     if not (user and user.admin):
            abort(401, description='must be admin')
+    
+    return jwt_admin[0]
 
 # function to check if jwt owner is a store account
 def is_store():

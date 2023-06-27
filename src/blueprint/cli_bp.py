@@ -94,7 +94,7 @@ def seed_db():
     # Seeding games table in database
     games = [
         Game(
-            name = 'Blood Rage',
+            name = 'Blood Rage'.title(),
             year = 2015,
             min_age = 15,
             price_per_week = 17.50,
@@ -103,7 +103,7 @@ def seed_db():
             owner_id = users[1].id
     ),
         Game(
-            name = 'Dominion',
+            name = 'Dominion'.title(),
             year = 2008,
             min_age = 11,
             price_per_week = 13.49,
@@ -112,7 +112,7 @@ def seed_db():
             owner_id = users[2].id
     ),
         Game(
-            name = 'Ticket to ride',
+            name = 'Ticket To Ride'.title(),
             year = 2005,
             min_age = 5,
             price_per_week = 15,
@@ -121,7 +121,7 @@ def seed_db():
             owner_id = users[3].id
     ),
         Game(
-            name = 'Pandemic',
+            name = 'Pandemic'.title(),
             year = 2007,
             min_age = 12,
             price_per_week = 10.99,
@@ -130,7 +130,7 @@ def seed_db():
             owner_id = users[1].id
     ),
         Game(
-            name = 'Carcassonne',
+            name = 'Carcassonne'.title(),
             year = 2000,
             min_age = 7,
             price_per_week = 8.50,
@@ -175,27 +175,27 @@ def seed_db():
     
     db.session.commit()
     
-    # Seeding designers table in database
+    # Seeding designers table in database (first and last name must have capitals on each word ie 'eric' must be 'Eric')
     designers = [
         Designer(
-            first_name = 'Eric',
-            last_name = 'Lang'
+            first_name = 'Eric'.title(),
+            last_name = 'Lang'.title()
     ),
         Designer(
-            first_name = 'Donald',
-            last_name = 'Vaccarino'
+            first_name = 'Donald'.title(),
+            last_name = 'Vaccarino'.title()
     ),
         Designer(
-            first_name = 'Alan',
-            last_name = 'Moon'
+            first_name = 'Alan'.title(),
+            last_name = 'Moon'.title()
     ),
         Designer(
-            first_name = 'Matt',
-            last_name = 'Leecock'
+            first_name = 'Matt'.title(),
+            last_name = 'Leecock'.title()
     ),
         Designer(
-            first_name = 'Klaus-Jurgen',
-            last_name = 'Wrede'
+            first_name = 'Klaus-Jurgen'.title(),
+            last_name = 'Wrede'.title()
     )
     ]
     
@@ -231,22 +231,22 @@ def seed_db():
     db.session.add_all(game_designers)
     db.session.commit()
     
-    # Seeding categories table in database
+    # Seeding categories table in database (category names must be capital on each word ie 'deck building' must be 'Deck Building')
     categories = [
         Category(
-            name = 'deck building'
+            name = 'Deck Building'.title()
     ),
         Category(
-            name = 'worker placement'
+            name = 'Worker Placement'.title()
     ),
         Category(
-            name = 'abstract'
+            name = 'Abstract'.title()
     ),
         Category(
-            name = 'euro'
+            name = 'Euro'.title()
     ),
         Category(
-            name = 'wargame'
+            name = 'Wargame'.title()
     )
     ]
     
