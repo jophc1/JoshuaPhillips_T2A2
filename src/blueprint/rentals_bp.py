@@ -86,6 +86,20 @@ def new_rental():
     db.session.add(new_rental)
     db.session.commit()
     
-    return GameRentDetailSchema().dump(new_rental)
+    return GameRentDetailSchema().dump(new_rental), 201
 
 # route to delete a game rental (admin only)
+@rentals.route('/<int:rental_id>', methods=['DELETE'])
+@jwt_required()
+def delete_rental(rental_id):
+    is_admin()
+    
+    game_rental = GameRentDetail.query.filter_by(id = rental_id).first()
+    
+    if not game_rental:
+        return {'error': 'Game rental does not exist (no game rental with rental_id)'}, 404
+    
+    db.session.delete(game_rental)
+    db.session.commit()
+    
+    return {}, 200
