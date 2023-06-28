@@ -51,3 +51,9 @@ class GameRentDetailSchema(ma.Schema):
                   'game_id', 'game_name', 'price_per_week', 'quantity', 'store_name', 
                   'store_street_number', 'store_street_name', 'store_suburb', 
                   'store_postcode') # 'game' may not be needed
+        
+class CreateRentalSchema(ma.Schema):
+
+    class Meta:
+        ordered = True
+        fields = ('rentee_id', 'game_id', 'quantity')

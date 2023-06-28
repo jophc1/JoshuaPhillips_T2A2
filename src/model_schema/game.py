@@ -21,7 +21,7 @@ class Game(db.Model):
     year = db.Column(db.Integer, nullable=False)
     min_age = db.Column(db.Integer, nullable=False)
     price_per_week = db.Column(db.Float, nullable=False)
-    quantity = db.Column(db.Integer, nullable=False)
+    quantity = db.Column(db.Integer, default=0)
     
     # foreign keys
     store_id = db.Column(db.Integer, db.ForeignKey('stores.id', ondelete='Cascade'), nullable=False)
@@ -36,7 +36,9 @@ class GameSchema(ma.Schema):
     game_designers = fields.List(fields.Nested('GameDesignerSchema', only=['designer']))
     game_categories = fields.List(fields.Nested('GameCategorySchema', only=['category']))
     store = fields.Nested('StoreSchema', exclude=['games', 'password'])
-    game_rent_details = fields.List(fields.Nested('GameRentDetailSchema', only=['id'])) #might not need this schema field
+    game_rent_details = fields.List(fields.Nested('GameRentDetailSchema', exclude=['game_id', 'game_name', 'store_name', 
+                                                                                    'store_street_number', 'store_street_name', 
+                                                                                    'store_suburb', 'store_postcode'])) 
     owner = fields.Nested('UserSchema', exclude=['games', 'game_rent_details', 'password', 'admin'])
     
     categories = fields.List(fields.String(required=True), required=True, validate=Length(min=1))

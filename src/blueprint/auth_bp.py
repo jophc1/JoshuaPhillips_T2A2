@@ -241,16 +241,3 @@ def is_store():
         abort(401, description='must be a store account')
 
     return jwt_identity[0]
-# def is_user_or_admin(user_input_id):
-    
-#     jwt_user = get_jwt_identity()
-    
-#     user = User.query.filter_by(id=jwt_user[0]).first()
-    
-#     if not (user and (user.admin or user.id == user_input_id)):
-#          abort(401, description='must be admin or user')
-
-    
-    
-    # if not ((store and store.id == store_id) or (user and user.admin)):
-    #      abort(401, description='must be admin or store')

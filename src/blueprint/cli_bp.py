@@ -98,7 +98,7 @@ def seed_db():
             year = 2015,
             min_age = 15,
             price_per_week = 17.50,
-            quantity = 1,
+            quantity = 4,
             store_id = stores[0].id,
             owner_id = users[1].id
     ),

@@ -34,3 +34,13 @@ class DesignerSchema(ma.Schema):
     class Meta:
         ordered = True
         fields = ('id', 'first_name', 'last_name', 'game_designers')
+
+class UpdateDesignerSchema(ma.Schema):
+    first_name = fields.String(required=False, validate=And(Regexp('^[A-Za-z-]+$', error='first name must only contain letters and hyphen, no spaces e.g Sally-May'), 
+                                                           Length(min=1, max=20)))
+    last_name = fields.String(required=False, validate=And(Regexp('^[A-Za-z-]+$', error='last name must only contain letters and hyphen, no spaces e.g Reed-Smith'), 
+                                                           Length(min=1, max=20)))
+    
+    class Meta:
+        ordered = True
+        fields = ('first_name', 'last_name')

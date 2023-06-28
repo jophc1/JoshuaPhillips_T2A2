@@ -6,12 +6,14 @@ from marshmallow.exceptions import ValidationError
 from blueprint.cli_bp import db_commands
 from blueprint.auth_bp import accounts
 from blueprint.games_bp import boardgames
+from blueprint.rentals_bp import rentals
 
 # list of register blueprints
 registerable_blueprints = [
     db_commands,
     accounts,
-    boardgames
+    boardgames,
+    rentals
 ]
 
 def setup_app():

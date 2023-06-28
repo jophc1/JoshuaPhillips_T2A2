@@ -3,7 +3,7 @@ from model_schema.user import User, UserSchema
 from model_schema.store import Store, StoreSchema
 from model_schema.game_category import GameCategory, GameCategorySchema
 from model_schema.game_designer import GameDesigner, GameDesignerSchema
-from model_schema.designer import Designer, DesignerSchema
+from model_schema.designer import Designer, DesignerSchema, UpdateDesignerSchema
 from model_schema.category import Category, CategorySchema, VALID_CATEGORIES
 from blueprint.auth_bp import is_admin, is_store
 from flask import Blueprint, request, abort
@@ -313,7 +313,7 @@ def create_category():
     check_category = Category.query.filter_by(name=category['name'].title()).first()
     
     if check_category:
-        return {'error': 'Category already exists'}
+        return {'error': 'Category already exists'}, 400
     
     new_category = Category(
         name = category['name'].title()
@@ -322,7 +322,7 @@ def create_category():
     db.session.add(new_category)
     db.session.commit()
     
-    return CategorySchema(only=['id', 'name']).dump(new_category)
+    return CategorySchema(only=['id', 'name']).dump(new_category), 201
 
 # route to add designer (admin only)
 @boardgames.route('/designer', methods=['POST'])
@@ -336,7 +336,7 @@ def create_designer():
                                                   Designer.last_name==designer['last_name'].title())).first()
     
     if check_designer:
-        return {'error': 'Designer already exists'}
+        return {'error': 'Designer already exists'}, 400
     
     new_designer = Designer(
         first_name = designer['first_name'].title(),
@@ -346,7 +346,7 @@ def create_designer():
     db.session.add(new_designer)
     db.session.commit()
     
-    return DesignerSchema(exclude=['game_designers']).dump(new_designer)
+    return DesignerSchema(exclude=['game_designers']).dump(new_designer), 201
 
 # route to update category (admin only)
 @boardgames.route('/category/<int:category_id>', methods=['PUT', 'PATCH'])
@@ -364,30 +364,80 @@ def update_category(category_id):
     check_category_name = Category.query.filter_by(name=category_info['name'].title()).first()
     
     if check_category_name:
-        return {'error': 'Cannot update, Category name already exists (cannot have duplicates)'}
+        return {'error': 'Cannot update, Category name already exists (cannot have duplicates)'}, 400
     
     category.name = category_info['name'].title()
     
     db.session.commit()
     
-    return CategorySchema(only=['id', 'name']).dump(category)
+    return CategorySchema(only=['id', 'name']).dump(category), 201
 
 # route to update designer (admin only)
-
+@boardgames.route('/designer/<int:designer_id>', methods=['PUT', 'PATCH'])
+@jwt_required()
+def update_designer(designer_id):
+    is_admin()
+    
+    designer_info = UpdateDesignerSchema().load(request.json)
+    
+    designer = Designer.query.filter_by(id=designer_id).first()
+    
+    if not designer:
+        return {'error': 'Cannot update, Designer id does not exist'}, 404
+    
+    check_for_designer = Designer.query.where(db.and_(Designer.first_name == designer_info['first_name'].title(),
+                                                      Designer.last_name == designer_info['last_name'].title())).first()
+    
+    if check_for_designer:
+        return {'error': 'Cannot update, Designer already exists (cannot have more than one designer with same first and last name)'}, 401
+    
+    designer.first_name = designer_info.get('first_name', designer.first_name).title()
+    designer.last_name = designer_info.get('last_name', designer.last_name).title()
+    
+    db.session.commit()
+    
+    return DesignerSchema(exclude=['game_designers']).dump(designer), 200
 
 # route to delete category (admin only)
-
-
-# route to delete designer (admin only)
-
-
-
-def is_category(category_name):
-    category = Category.query.filter_by(name=category_name).first()
+@boardgames.route('/category/<int:category_id>', methods=['DELETE'])
+@jwt_required()
+def delete_category(category_id):
+    is_admin()
+    
+    category = Category.query.filter_by(id=category_id).first()
     
     if not category:
-        abort(401, description='category name does not exist')
+        return {'error': 'Cannot delete, category id does not exist'}, 404
+    
+    db.session.delete(category)
+    db.session.commit()
+    
+    return {}, 200
 
+# route to delete designer (admin only)
+@boardgames.route('/designer/<int:designer_id>', methods=['DELETE'])
+@jwt_required()
+def delete_designer(designer_id):
+    is_admin()
+    
+    designer = Designer.query.filter_by(id=designer_id).first()
+    
+    if not designer:
+        return {'error': 'Cannot delete, designer id does not exist'}, 404
+    
+    db.session.delete(designer)
+    db.session.commit()
+    
+    return {}, 200
+
+
+# def is_category(category_name):
+#     category = Category.query.filter_by(name=category_name).first()
+    
+#     if not category:
+#         abort(401, description='category name does not exist')
+        
+# find all category names and returns as a list
 def all_categories():
     stmt = db.select(Category)
     all_category = db.session.scalars(stmt).all()
