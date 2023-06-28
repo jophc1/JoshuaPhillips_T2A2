@@ -1,6 +1,6 @@
 from init import db, ma
 from marshmallow import fields
-from marshmallow.validate import Length, Regexp
+from marshmallow.validate import Length, Regexp, Range
 
 class Game(db.Model):
     """
@@ -71,4 +71,12 @@ class GameUpdateSchema(ma.Schema):
         fields = ('id', 'name', 'year', 'min_age', 'price_per_week', 'quantity', 
                   'game_designers', 'game_categories', 'store', 
                   'categories', 'designers')
+
+class MinMaxSchema(ma.Schema):
+    
+    min_price = fields.Float(required=True)
+    max_price = fields.Float(required=True)
+    
+    class Meta:
+        fields = ('min_price', 'max_price')
         

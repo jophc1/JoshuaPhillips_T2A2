@@ -223,9 +223,9 @@ def get_stores():
 
 # function to check if jwt owner is an administrator
 def is_admin():
-    jwt_admin = get_jwt_identity()
+    jwt_identity = get_jwt_identity()
     
-    user = User.query.filter_by(id=jwt_admin[0]).first()    
+    user = User.query.filter_by(email=jwt_identity[1]).first()    
     
     if not (user and user.admin):
            abort(401, description='must be admin')

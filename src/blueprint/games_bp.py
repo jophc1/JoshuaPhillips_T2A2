@@ -1,4 +1,4 @@
-from model_schema.game import Game, GameSchema, GameUpdateSchema
+from model_schema.game import Game, GameSchema, GameUpdateSchema, MinMaxSchema
 from model_schema.user import User, UserSchema
 from model_schema.store import Store, StoreSchema
 from model_schema.game_category import GameCategory, GameCategorySchema
@@ -46,6 +46,21 @@ def get_owned_games():
     return GameSchema(many=True).dump(games), 200
 
 # route to filter games by a range of rental price
+@boardgames.route('/minmaxprice', methods=['POST'])
+def filter_games_by_rangeprice():
+    
+    price_range = MinMaxSchema().load(request.json)
+    
+    min_price = price_range['min_price']
+    max_price = price_range['max_price']
+    
+    if min_price > max_price:
+        return {'error': 'Minimum price must be lower than or equal to Maximum price range'}
+    
+    games = Game.query.where(db.and_(Game.price_per_week >= min_price,
+                                    Game.price_per_week <= max_price)).all()
+    
+    return GameSchema(many=True, exclude=['owner', 'game_rent_details', 'owner_id']).dump(games)
 
 # route to filter games by a store id
 @boardgames.route('/store/<int:bgstore_id>')
@@ -288,16 +303,83 @@ def delete_game(game_id):
     return error, 401
 
 # route to add category (admin only)
+@boardgames.route('/category', methods=['POST'])
+@jwt_required()
+def create_category():
+    is_admin()
+    
+    category = CategorySchema().load(request.json)
+    
+    check_category = Category.query.filter_by(name=category['name'].title()).first()
+    
+    if check_category:
+        return {'error': 'Category already exists'}
+    
+    new_category = Category(
+        name = category['name'].title()
+    )
+    
+    db.session.add(new_category)
+    db.session.commit()
+    
+    return CategorySchema(only=['id', 'name']).dump(new_category)
 
 # route to add designer (admin only)
+@boardgames.route('/designer', methods=['POST'])
+@jwt_required()
+def create_designer():
+    is_admin()
+    
+    designer = DesignerSchema().load(request.json)
+    
+    check_designer = Designer.query.where(db.and_(Designer.first_name==designer['first_name'].title(),
+                                                  Designer.last_name==designer['last_name'].title())).first()
+    
+    if check_designer:
+        return {'error': 'Designer already exists'}
+    
+    new_designer = Designer(
+        first_name = designer['first_name'].title(),
+        last_name = designer['last_name'].title()
+    )
+    
+    db.session.add(new_designer)
+    db.session.commit()
+    
+    return DesignerSchema(exclude=['game_designers']).dump(new_designer)
 
 # route to update category (admin only)
+@boardgames.route('/category/<int:category_id>', methods=['PUT', 'PATCH'])
+@jwt_required()
+def update_category(category_id):
+    is_admin()
+    
+    category_info = CategorySchema().load(request.json)
+    
+    category = Category.query.filter_by(id=category_id).first()
+    
+    if not category:
+        return {'error': 'Cannot update, Category id does not exist'}, 404
+    
+    check_category_name = Category.query.filter_by(name=category_info['name'].title()).first()
+    
+    if check_category_name:
+        return {'error': 'Cannot update, Category name already exists (cannot have duplicates)'}
+    
+    category.name = category_info['name'].title()
+    
+    db.session.commit()
+    
+    return CategorySchema(only=['id', 'name']).dump(category)
 
 # route to update designer (admin only)
 
+
 # route to delete category (admin only)
 
+
 # route to delete designer (admin only)
+
 
 
 def is_category(category_name):
