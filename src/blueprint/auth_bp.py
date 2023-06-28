@@ -250,13 +250,7 @@ def is_store():
 #     if not (user and (user.admin or user.id == user_input_id)):
 #          abort(401, description='must be admin or user')
 
-# function to check if input store id is same as jwt identity store id, else admin can also be used         
-def is_store_or_admin(store_id):
     
-    jwt_identity = get_jwt_identity()
     
-    store = Store.query.filter_by(id=jwt_identity[0]).first()
-    user = User.query.filter_by(id=jwt_identity[0]).first()
-    
-    if not ((store and store.id == store_id) or (user and user.admin)):
-         abort(401, description='must be admin or store')
+    # if not ((store and store.id == store_id) or (user and user.admin)):
+    #      abort(401, description='must be admin or store')

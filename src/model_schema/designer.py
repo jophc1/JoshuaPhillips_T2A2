@@ -1,5 +1,6 @@
 from init import db, ma
 from marshmallow import fields
+from sqlalchemy.ext import hybrid
 
 class Designer(db.Model):
     """
@@ -17,6 +18,10 @@ class Designer(db.Model):
    
     # field relationships
     game_designers = db.relationship('GameDesigner', backref='designer', cascade='all, delete')
+    
+    @hybrid.hybrid_property
+    def full_name(self):
+        return self.first_name + ' ' + self.last_name
 
 class DesignerSchema(ma.Schema):
     game_designers = fields.List(fields.Nested('GameDesignerSchema', exclude=['designer']))

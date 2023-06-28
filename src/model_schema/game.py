@@ -1,5 +1,6 @@
 from init import db, ma
 from marshmallow import fields
+from marshmallow.validate import Length, Regexp
 
 class Game(db.Model):
     """
@@ -38,9 +39,36 @@ class GameSchema(ma.Schema):
     game_rent_details = fields.List(fields.Nested('GameRentDetailSchema', only=['id'])) #might not need this schema field
     owner = fields.Nested('UserSchema', exclude=['games', 'game_rent_details', 'password', 'admin'])
     
+    categories = fields.List(fields.String(required=True), required=True, validate=Length(min=1))
+    designers = fields.List(fields.String(
+        required=True, 
+        validate=Regexp("^[A-Za-z]+\s[A-Za-z]+$", 
+        error='Name string must be in format [first_name last_name] e.g Alan Moon')
+        ), 
+        required=True, validate=Length(min=1))
+    
     class Meta:
         ordered = True
         fields = ('id', 'name', 'year', 'min_age', 'price_per_week', 'quantity', 
                   'game_designers', 'game_categories', 'store', 'game_rent_details', 'owner', 'owner_id', 
                   'categories', 'designers') #game_rent_details may not be needed
+        
+class GameUpdateSchema(ma.Schema):
+    game_designers = fields.List(fields.Nested('GameDesignerSchema', only=['designer']))
+    game_categories = fields.List(fields.Nested('GameCategorySchema', only=['category']))
+    store = fields.Nested('StoreSchema', exclude=['games', 'password'])
+    
+    categories = fields.List(fields.String(required=True), required=False, validate=Length(min=1))
+    designers = fields.List(fields.String(
+        required=True, 
+        validate=Regexp("^[A-Za-z]+\s[A-Za-z]+$", 
+        error='Name string must be in format [first_name last_name] e.g Alan Moon')
+        ), 
+        required=False, validate=Length(min=1))
+
+    class Meta:
+        ordered = True
+        fields = ('id', 'name', 'year', 'min_age', 'price_per_week', 'quantity', 
+                  'game_designers', 'game_categories', 'store', 
+                  'categories', 'designers')
         
