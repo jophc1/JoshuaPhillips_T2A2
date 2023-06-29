@@ -43,8 +43,7 @@ class GameRentDetail(db.Model):
     # field relationships
     
 class GameRentDetailSchema(ma.Schema):
-    # game = fields.Nested('GameSchema', only=['id']) #may not need this schema field
-    # rentee = fields.Nested('UserSchema', exclude=['game_rent_details'])
+    
     
     class Meta:
         ordered = True

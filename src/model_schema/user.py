@@ -1,6 +1,6 @@
 from init import db, ma
 from marshmallow import fields
-from marshmallow.validate import Length, Range, Regexp, And
+from marshmallow.validate import Length, Regexp, And
 
 
 class User(db.Model):
@@ -27,6 +27,7 @@ class User(db.Model):
     games = db.relationship('Game', backref='owner', cascade='all, delete')
     game_rent_details = db.relationship('GameRentDetail', backref='rentee')
 
+
 class UserSchema(ma.Schema):
     games = fields.List(fields.Nested('GameSchema', exclude=['game_rent_details','owner']))
     game_rent_details = fields.List(fields.Nested('GameRentDetailSchema', exclude=['rentee', 'rentee_first_name', 
@@ -43,6 +44,7 @@ class UserSchema(ma.Schema):
         ordered = True
         fields = ('id', 'first_name', 'last_name', 'email', 
                   'password', 'admin', 'games', 'game_rent_details')
+
 
 class UpdateUserSchema(ma.Schema):
     first_name = fields.String(required=False, validate=And(Regexp('^[A-Za-z]+$', error='first name must only contain letters, no spaces'), 

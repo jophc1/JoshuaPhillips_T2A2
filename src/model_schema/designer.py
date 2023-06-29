@@ -20,6 +20,7 @@ class Designer(db.Model):
     # field relationships
     game_designers = db.relationship('GameDesigner', backref='designer', cascade='all, delete')
     
+    # decorator to combine first and last name into a single field
     @hybrid.hybrid_property
     def full_name(self):
         return self.first_name + ' ' + self.last_name
@@ -34,6 +35,7 @@ class DesignerSchema(ma.Schema):
     class Meta:
         ordered = True
         fields = ('id', 'first_name', 'last_name', 'game_designers')
+
 
 class UpdateDesignerSchema(ma.Schema):
     first_name = fields.String(required=False, validate=And(Regexp('^[A-Za-z-]+$', error='first name must only contain letters and hyphen, no spaces e.g Sally-May'), 

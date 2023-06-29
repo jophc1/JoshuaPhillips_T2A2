@@ -62,6 +62,7 @@ class GameSchema(ma.Schema):
         fields = ('id', 'name', 'year', 'min_age', 'price_per_week', 'quantity', 
                   'game_designers', 'game_categories', 'store', 'game_rent_details', 'owner', 'owner_id', 
                   'categories', 'designers') 
+
         
 class GameUpdateSchema(ma.Schema):
     game_designers = fields.List(fields.Nested('GameDesignerSchema', only=['designer']))

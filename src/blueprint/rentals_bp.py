@@ -15,7 +15,7 @@ rentals = Blueprint('rental', __name__, url_prefix='/rentals')
 @jwt_required()
 def get_rentals():
     is_admin()
-    
+    # query database for all game records, ordering by descending date
     game_rentals = GameRentDetail.query.order_by(desc('date')).all()
     
     return GameRentDetailSchema(many=True).dump(game_rentals), 200
@@ -25,7 +25,7 @@ def get_rentals():
 @jwt_required()
 def get_store_rentals():
     game_store_id = is_store()
-    
+    # query database to match a record by store id, with a store id from jwt identity id, in games
     games = Game.query.filter_by(store_id = game_store_id).all()
     
     return GameSchema(many=True, only=['id', 'name', 'game_rent_details']).dump(games), 200
@@ -37,13 +37,14 @@ def new_rental():
     game_store_id = is_store()
     
     rental_detail = CreateRentalSchema().load(request.json)
-    
+    # query database to match a record by store id and game id, with a store id from jwt identity and game id from request data, in games
     game = Game.query.where(db.and_(Game.store_id == game_store_id, 
                                     Game.id == rental_detail['game_id'])).first()
     
     if not game:
         return {'error': 'Store does not own game (cannot use game_id)'}, 400
     
+    # query database to match a record by id, with a user id from request data, in users
     rentee = User.query.filter_by(id = rental_detail['rentee_id']).first()
     
     if not rentee:
@@ -87,7 +88,7 @@ def new_rental():
 @jwt_required()
 def delete_rental(rental_id):
     is_admin()
-    
+    # query database to match a record by id, with a user id from RESTful paremeter, in games
     game_rental = GameRentDetail.query.filter_by(id = rental_id).first()
     
     if not game_rental:

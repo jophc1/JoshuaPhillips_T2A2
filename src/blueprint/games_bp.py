@@ -453,14 +453,7 @@ def delete_designer(designer_id):
     db.session.commit()
     
     return {}, 200
-
-
-# def is_category(category_name):
-#     category = Category.query.filter_by(name=category_name).first()
-    
-#     if not category:
-#         abort(401, description='category name does not exist')
-        
+     
 # find all category names and returns as a list
 def all_categories():
     stmt = db.select(Category)
