@@ -20,7 +20,7 @@ class GameDesigner(db.Model):
 
 class GameDesignerSchema(ma.Schema):
     designer = fields.Nested('DesignerSchema', exclude=['game_designers'])
-    game = fields.Nested('GameSchema', exclude=['game_designers', 'game_rent_details', 'owner'])
+    game = fields.Nested('GameSchema', exclude=['game_designers', 'game_rent_details', 'owner', 'owner_id'])
     
     class Meta:
         ordered = True

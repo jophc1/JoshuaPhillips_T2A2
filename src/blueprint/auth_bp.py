@@ -246,7 +246,7 @@ def get_stores():
 # function to check if jwt owner is an administrator
 def is_admin():
     jwt_identity = get_jwt_identity()
-    
+    # query database to see if match a record by email to jwt identity email in users
     user = User.query.filter_by(email=jwt_identity[1]).first()    
     
     if not (user and user.admin):
@@ -256,7 +256,7 @@ def is_admin():
 # function to check if jwt owner is a store account
 def is_store():
     jwt_identity = get_jwt_identity()
-    
+    # query database to see if match a record by email to jwt identity email in users
     store = Store.query.filter_by(email=jwt_identity[1]).first()
     
     if not store:
