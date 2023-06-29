@@ -657,3 +657,574 @@ example request response:
     }
 ]
 ```
+
+#### POST Filter Games by range price 
+Route: /games/minmaxprice  
+Method/s: POST      
+Description: Search and return Games based on minimum and maximum prices sent in request body  
+Authentication required: No  
+Additional account permission: No     
+<u>Query Parameters</u>    
+* Mandatory (key name, type):    
+(min_price, float)
+(max_price, float)
+
+* Optional (key name, type):   
+n/a   
+
+example route URI:   
+```
+127.0.0.1:5000/games/minmaxprice
+```
+example request body:   
+```
+{
+    "min_price": 12.50,
+    "max_price": 15.0
+}
+```
+example request response:   
+```
+[
+    {
+        "id": 2,
+        "name": "Dominion",
+        "year": 2008,
+        "min_age": 11,
+        "price_per_week": 13.49,
+        "quantity": 3,
+        "game_designers": [],
+        "game_categories": [
+            {
+                "category": {
+                    "id": 1,
+                    "name": "Deck Building"
+                }
+            }
+        ],
+        "store": {
+            "id": 2,
+            "name": "Random Dice Ltd",
+            "street_number": 11,
+            "street_name": "Griffin st",
+            "suburb": "Cairns",
+            "postcode": 4870,
+            "email": "bookings@randomdice.com"
+        }
+    }
+]
+```
+
+#### GET Filter games by store id 
+Route: /games/store/\<int:bgstore_id\>  
+Method/s: GET      
+Description: Search and return games based on store id  
+Authentication required: No  
+Additional account permission: No 
+<u>Query Parameters</u>    
+* Mandatory (key name, type):    
+n/a   
+
+* Optional (key name, type):   
+n/a   
+
+example route URI:   
+```
+127.0.0.1:5000/games/store/1
+```
+example request body:   
+```
+n/a
+```
+example request response:   
+```
+[
+    {
+        "id": 4,
+        "name": "Pandemic",
+        "year": 2007,
+        "min_age": 12,
+        "price_per_week": 10.99,
+        "quantity": 1,
+        "game_designers": [
+            {
+                "designer": {
+                    "id": 4,
+                    "first_name": "Matt",
+                    "last_name": "Leecock"
+                }
+            }
+        ],
+        "game_categories": [
+            {
+                "category": {
+                    "id": 3,
+                    "name": "Abstract"
+                }
+            }
+        ],
+        "store": {
+            "id": 1,
+            "name": "Valley of Shadow gaming",
+            "street_number": 35,
+            "street_name": "Shield St",
+            "suburb": "Cairns",
+            "postcode": 4870,
+            "email": "services@playmore.com"
+        }
+    }
+]
+```
+
+#### GET Filter Games by designer
+Route: /games/designer/\<string:designer_first_name\>/\<string:designer_last_name\>  
+Method/s: GET   
+Description: Search and return all games with the designer's name that was provided  
+Authentication required: No  
+Additional account permission: No     
+<u>Query Parameters</u>    
+* Mandatory (key name, type):    
+n/a   
+
+* Optional (key name, type):   
+n/a   
+
+example route URI:   
+```
+127.0.0.1:5000/games/designer/klaus-jurgen/wrede
+```
+example request body:   
+```
+n/a
+```
+example request response:   
+```
+{
+    "id": 5,
+    "first_name": "Klaus-Jurgen",
+    "last_name": "Wrede",
+    "game_designers": [
+        {
+            "id": 5,
+            "game": {
+                "id": 5,
+                "name": "Carcassonne",
+                "year": 2000,
+                "min_age": 7,
+                "price_per_week": 8.5,
+                "quantity": 3,
+                "game_categories": [
+                    {
+                        "category": {
+                            "id": 4,
+                            "name": "Euro"
+                        }
+                    }
+                ],
+                "store": {
+                    "id": 2,
+                    "name": "Random Dice Ltd",
+                    "street_number": 11,
+                    "street_name": "Griffin st",
+                    "suburb": "Cairns",
+                    "postcode": 4870,
+                    "email": "bookings@randomdice.com"
+                }
+            }
+        }
+    ]
+}
+```
+
+#### GET Filter Games by Category 
+Route: /games/category/\<string:category_name\>  
+Method/s: GET      
+Description: Search and return games based on the category name provided  
+Authentication required: No  
+Additional account permission: No  
+<u>Query Parameters</u>    
+* Mandatory (key name, type):    
+n/a   
+
+* Optional (key name, type):   
+n/a   
+
+example route URI:   
+```
+127.0.0.1:5000/games/category/euro
+```
+example request body:   
+```
+n/a
+```
+example request response:   
+```
+{
+    "id": 4,
+    "name": "Euro",
+    "game_categories": [
+        {
+            "id": 7,
+            "game": {
+                "id": 5,
+                "name": "Carcassonne",
+                "year": 2000,
+                "min_age": 7,
+                "price_per_week": 8.5,
+                "quantity": 3,
+                "game_designers": [
+                    {
+                        "designer": {
+                            "id": 5,
+                            "first_name": "Klaus-Jurgen",
+                            "last_name": "Wrede"
+                        }
+                    }
+                ],
+                "store": {
+                    "id": 2,
+                    "name": "Random Dice Ltd",
+                    "street_number": 11,
+                    "street_name": "Griffin st",
+                    "suburb": "Cairns",
+                    "postcode": 4870,
+                    "email": "bookings@randomdice.com"
+                }
+            }
+        }
+    ]
+}
+```
+
+#### Filter Games by minimum age 
+Route: /games/minage/<int:minimum_age>'  
+Method/s: GET  
+Description: Search and return games base on minimum age provided  
+Authentication required: No  
+Additional account permission: No   
+<u>Query Parameters</u>    
+* Mandatory (key name, type):    
+n/a   
+
+* Optional (key name, type):   
+n/a   
+
+example route URI:   
+```
+127.0.0.1:5000/games/minage/15
+```
+example request body:   
+```
+n/a   
+```
+example request response:   
+```
+[
+    {
+        "id": 2,
+        "name": "Dominion",
+        "year": 2008,
+        "min_age": 11,
+        "price_per_week": 13.49,
+        "quantity": 3,
+        "game_designers": [],
+        "game_categories": [
+            {
+                "category": {
+                    "id": 1,
+                    "name": "Deck Building"
+                }
+            }
+        ],
+        "store": {
+            "id": 2,
+            "name": "Random Dice Ltd",
+            "street_number": 11,
+            "street_name": "Griffin st",
+            "suburb": "Cairns",
+            "postcode": 4870,
+            "email": "bookings@randomdice.com"
+        }
+    }
+]
+```
+
+#### POST Create new Game for store 
+Route: /games  
+Method/s: POST  
+Description: Add a new Game, can only be created by a Store account. Must specify which User owns game by id  
+Authentication required: Yes  
+Additional account permission: Have a JWT associated with a Store  
+<u>Query Parameters</u>    
+* Mandatory (key name, type):    
+(name, string)   
+(year, int)   
+(min_age, int)   
+(price_per_week, float)   
+(quantity, int)   
+(owner_id, int)   
+(categories, [string])   
+(designers, [string], format of string = "first_name last_name")   
+
+* Optional (key name, type):   
+n/a   
+
+example route URI:   
+```
+127.0.0.1:5000/games
+```
+example request body:   
+```
+{
+    "name": "Blue Rage",
+    "year": 2015,
+    "min_age": 15,
+    "price_per_week": 17.50,
+    "quantity": 1,
+    "owner_id": 1,
+    "categories": ["Deck Building", "Euro"],
+    "designers": ["Alan Moon", "Matt Leecock"]
+}
+```
+example request response:   
+```
+{
+    "id": 9,
+    "name": "Blue Rage",
+    "year": 2015,
+    "min_age": 15,
+    "price_per_week": 17.5,
+    "quantity": 1,
+    "game_designers": [
+        {
+            "designer": {
+                "id": 3,
+                "first_name": "Alan",
+                "last_name": "Moon"
+            }
+        },
+        {
+            "designer": {
+                "id": 4,
+                "first_name": "Matt",
+                "last_name": "Leecock"
+            }
+        }
+    ],
+    "game_categories": [
+        {
+            "category": {
+                "id": 1,
+                "name": "Deck Building"
+            }
+        },
+        {
+            "category": {
+                "id": 4,
+                "name": "Euro"
+            }
+        }
+    ],
+    "store": {
+        "id": 1,
+        "name": "Valley of Shadow gaming",
+        "street_number": 35,
+        "street_name": "Shield St",
+        "suburb": "Cairns",
+        "postcode": 4870,
+        "email": "services@playmore.com"
+    },
+    "owner": {
+        "id": 1,
+        "first_name": "John",
+        "last_name": "Daniels",
+        "email": "admin@bg.com"
+    }
+}
+```
+
+#### PUT/PATCH Update a game 
+Route: /games/\<int:game_id\>    
+Method/s: PUT, PULL      
+Description: Update a Game details that is owned by the accessing Store account   
+Authentication required: Yes   
+Additional account permission: Have a JWT associated with a Store     
+<u>Query Parameters</u>    
+* Mandatory (key name, type):    
+n/a   
+
+* Optional (key name, type):   
+(name, string)   
+(year, int)   
+(min_age, int)   
+(price_per_week, float)   
+(quantity, int)   
+(owner_id, int)   
+(categories, [string])   
+(designers, [string], format of string = "first_name last_name")   
+
+example route URI:   
+```
+127.0.0.1:5000/games/1
+```
+example request body:   
+```
+{
+    "name": "Blood Moon",
+    "year": 2015,
+    "min_age": 15,
+    "price_per_week": 17.50,
+    "quantity": 1,
+    "categories": ["Euro", "Abstract"],
+    "designers": ["Alan Moon", "Matt Leecock"]
+} 
+```
+example request response:   
+```
+{
+    "id": 1,
+    "name": "Blood Moon",
+    "year": 2015,
+    "min_age": 15,
+    "price_per_week": 17.5,
+    "quantity": 1,
+    "game_designers": [
+        {
+            "designer": {
+                "id": 3,
+                "first_name": "Alan",
+                "last_name": "Moon"
+            }
+        },
+        {
+            "designer": {
+                "id": 4,
+                "first_name": "Matt",
+                "last_name": "Leecock"
+            }
+        }
+    ],
+    "game_categories": [
+        {
+            "category": {
+                "id": 4,
+                "name": "Euro"
+            }
+        },
+        {
+            "category": {
+                "id": 3,
+                "name": "Abstract"
+            }
+        }
+    ],
+    "store": {
+        "id": 1,
+        "name": "Valley of Shadow gaming",
+        "street_number": 35,
+        "street_name": "Shield St",
+        "suburb": "Cairns",
+        "postcode": 4870,
+        "email": "services@playmore.com"
+    },
+    "owner": {
+        "id": 2,
+        "first_name": "Sally",
+        "last_name": "McDonald",
+        "email": "sally@yahoo.com"
+    }
+}
+```
+
+#### DELETE Delete game  
+Route: /games/\<int:game_id\>  
+Method/s: DELETE   
+Description: Delete a game. If a Store is accessing then they can delete their own games, if Administrator is accessing they can delete any game. If successful, it returns an empty json  
+Authentication required: Yes 
+Additional account permission: Have a JWT associated with a Store or a User with administrator privileges   
+<u>Query Parameters</u>    
+* Mandatory (key name, type):    
+n/a   
+
+* Optional (key name, type):   
+n/a   
+
+example route URI:   
+```
+127.0.0.1:5000/games/1
+```
+example request body:   
+```
+n/a   
+```
+example request response:   
+```
+{}
+```
+
+#### POST Create Category 
+Route: /games/category  
+Method/s: POST   
+Description: Add a board game Category  
+Authentication required: Yes    
+Additional account permission: Have a JWT associated with a User with administrator privileges   
+<u>Query Parameters</u>    
+* Mandatory (key name, type):    
+(name, string)   
+
+* Optional (key name, type):   
+n/a   
+
+example route URI:   
+```
+127.0.0.1:5000/games/category
+```
+example request body:   
+```
+{
+    "name": "traditional"
+}
+```
+example request response:   
+```
+{
+    "id": 7,
+    "name": "Traditional"
+}
+```
+
+#### POST Create Designer 
+Route: /games/designer  
+Method/s: POST   
+Description: Add a board game Designer  
+Authentication required: Yes  
+Additional account permission: Have a JWT associated with a User with administrator privileges   
+<u>Query Parameters</u>    
+* Mandatory (key name, type):    
+(first_name, string)   
+(last_name, string)   
+
+* Optional (key name, type):   
+n/a   
+
+example route URI:   
+```
+127.0.0.1:5000/games/designer
+```
+example request body:   
+```
+{
+    "first_name": "Gordan",
+    "last_name": "Freeman"
+}
+```
+example request response:   
+```
+{
+    "id": 7,
+    "first_name": "Gordan",
+    "last_name": "Freeman"
+}
+```
+
+update category
