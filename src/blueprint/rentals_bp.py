@@ -42,7 +42,7 @@ def new_rental():
                                     Game.id == rental_detail['game_id'])).first()
     
     if not game:
-        return {'error': 'Store does not own game (cannot use game_id)'}, 400
+        return {'error': 'Either Store does not own game or Game id does not exist (cannot use game_id)'}, 400
     
     # query database to match a record by id, with a user id from request data, in users
     rentee = User.query.filter_by(id = rental_detail['rentee_id']).first()

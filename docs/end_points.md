@@ -45,7 +45,7 @@ example request response:
     "token": "eyJhbGCiOiJIUzI1NiIsInR4cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4ODAyNZY3MSwianRpIjoiMjI1MTYwZWYtMThjNC00Y2YyLWI0OTAtYzcyZThjMTU0MmI3IiwidHlwZSI6IrFjY2VzcyIsInN1YiI6WzUsImZyYW5ueUBnbWFpbC5jb20iXSwibmJmIjoxNjg4MDI3NjcxLCJleHAiOjE2ODgwMzg0NzF9.bAGLmO8B5G7I3yVB6XsdHrkIUWvtAlGa3bQbAXjwQyI"
 }
 ```
-
+[return to top](#boardgame-rental-api-endpoints-documentation)   
 #### POST Register Store
 Route: /register/store  
 Method/s: POST  
@@ -91,7 +91,7 @@ example request response:
     "token": "eyJhcGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4ODAyODEwNywianRpIjoiZDlmYTg4NGQtMzAzMC00YzYzLTgyMmMtZjJiNTMxODa5ZjkxIiwidHlwZSI6ImFJY2VzcyIsInN1YiI6WzQsImhhdmVAZnVuZ2FtaW5nLmNvbSJdLCJuYmYiOjE2ODgwMjgxMDcsImv4cCI6MTY4ODAzODkwN30.kdutfMBYAP4nJCm10cTAA_8wBQZ7PUNhqRQnsTwvfdU"
 }
 ```
-
+[return to top](#boardgame-rental-api-endpoints-documentation)   
 #### POST Login User
 Route: /login/user     
 Method/s: POST    
@@ -126,7 +126,7 @@ example request response:
     "token": "eyJhbGciOiJIuzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4ODAyODA4MywianRpIjoiODg1NmMwNGUtY2E4Ni00YTY4LTg2NGQtYWQ4ZDkzNzQyNWM3IiwidHlWZSI6ImFjY2VzcyISInN1YiI6WzEsImFkbWluQGJnLmNvbSJdLCJuYmYiOjE2ODgwMjgwODMsImV4cCI6MTY4ODAzODg4M30.vkA4AMR7VdqwYb3dX-wIzsmpw3O3TY0RrJjVURjgmeo"
 }
 ```
-
+[return to top](#boardgame-rental-api-endpoints-documentation)   
 #### POST Login Store
 Route: /login/store  
 Method/s: POST  
@@ -161,10 +161,10 @@ example request response:
     "token": "EyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4ODAyOtUzMiwianRpIjoiZjA0MzFmMmItYjc3OS00ZGEyLTk1NDYtNmU2NWZiZDA1Njg3IiwidHlwZSI6ImFjY2VicyIsInN1YiI6WzEsInNlcnZpY2VzQHBsYXltb3JlLmNvbSJdLCJuYmYiOjE2ODgwMjk1MzIsImV4cCI6MTY4ODA0MDMzMn0.LVnMdq_QGypEohT4ZKDZZUldgtsjotY30Xe3De8Z_IM"
 }
 ```
-
-#### PUT/PULL Update User 
+[return to top](#boardgame-rental-api-endpoints-documentation)   
+#### PUT/PATCH Update User 
 Route: /user    
-Method/s: PUT, PULL    
+Method/s: PUT, PATCH    
 Description: Change the name details of a user   
 Authentication required: Yes 
 Additional account permission: Have a JWT associated with a User      
@@ -194,10 +194,10 @@ example request response:
     "last_name": "Daniels"
 }
 ```
-
-#### PUT/PULL Update Store
+[return to top](#boardgame-rental-api-endpoints-documentation)   
+#### PUT/PATCH Update Store
 Route: /store  
-Method/s: PUT, PULL   
+Method/s: PUT, PATCH   
 Description: Change details of a store account, returns a JWT if email is changed  
 Authentication required: Yes   
 Additional account permission: Have a JWT associated with a Store    
@@ -243,7 +243,7 @@ example request response:
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4ODAzMDYwNiwianRpIjoiNDRlZjdiNzgtNTY3NS00MWUyLTkxZjQtMTM3M2JmYWIxMWJiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6WzEsInNlcnZpY2VzQHBsYXltb3JlLmNvbSJdLCJuYmYiOjE2ODgwMzA2MDYsImV4cCI6MTY4ODA0MTQwNn0.eiTjDg44IQ1qzaAy7u9h1ocdnwjuXlbMxD6wWgvLzcw"
 }
 ```
-
+[return to top](#boardgame-rental-api-endpoints-documentation)   
 #### DELETE Delete User
 Route: /user  
 Method/s: DELETE   
@@ -269,7 +269,7 @@ example request response:
 ```
 {}
 ```
-
+[return to top](#boardgame-rental-api-endpoints-documentation)   
 #### DELETE Delete specific user 
 Route: /users/\<int:user_id\>  
 Method/s: DELETE   
@@ -295,6 +295,7 @@ example request response:
 ```
 {}
 ```
+[return to top](#boardgame-rental-api-endpoints-documentation)   
 #### DELETE Delete Store 
 Route: /store  
 Method/s: DELETE   
@@ -320,7 +321,7 @@ example request response:
 ```
 {}
 ```
-
+[return to top](#boardgame-rental-api-endpoints-documentation)   
 #### DELETE Delete specific Store 
 Route: /stores/\<int:store_id\>  
 Method/s: DELETE   
@@ -346,6 +347,7 @@ example request response:
 ```
 {}
 ```
+[return to top](#boardgame-rental-api-endpoints-documentation)   
 #### GET Get Users 
 Route: /users  
 Method/s: GET   
@@ -384,7 +386,7 @@ example request response:
     }
 ]
 ```
-
+[return to top](#boardgame-rental-api-endpoints-documentation)   
 #### GET Get Stores 
 Route: /stores  
 Method/s: GET   
@@ -429,7 +431,7 @@ example request response:
     }
 ]
 ```
-
+[return to top](#boardgame-rental-api-endpoints-documentation)   
 ### Games routes   
    
 #### GET Get Games 
@@ -518,7 +520,7 @@ example request response:
     }
 ]
 ```
-
+[return to top](#boardgame-rental-api-endpoints-documentation)   
 #### GET Get specific Game 
 Route: /games/\<int:game_id\>  
 Method/s: GET  
@@ -577,7 +579,7 @@ example request response:
     }
 }
 ```
-
+[return to top](#boardgame-rental-api-endpoints-documentation)   
 #### GET Get owned Games 
 Route: /games/owned  
 Method/s: GET   
@@ -657,7 +659,7 @@ example request response:
     }
 ]
 ```
-
+[return to top](#boardgame-rental-api-endpoints-documentation)   
 #### POST Filter Games by range price 
 Route: /games/minmaxprice  
 Method/s: POST      
@@ -714,7 +716,7 @@ example request response:
     }
 ]
 ```
-
+[return to top](#boardgame-rental-api-endpoints-documentation)   
 #### GET Filter games by store id 
 Route: /games/store/\<int:bgstore_id\>  
 Method/s: GET      
@@ -775,7 +777,7 @@ example request response:
     }
 ]
 ```
-
+[return to top](#boardgame-rental-api-endpoints-documentation)   
 #### GET Filter Games by designer
 Route: /games/designer/\<string:designer_first_name\>/\<string:designer_last_name\>  
 Method/s: GET   
@@ -835,7 +837,7 @@ example request response:
     ]
 }
 ```
-
+[return to top](#boardgame-rental-api-endpoints-documentation)   
 #### GET Filter Games by Category 
 Route: /games/category/\<string:category_name\>  
 Method/s: GET      
@@ -895,9 +897,9 @@ example request response:
     ]
 }
 ```
-
-#### Filter Games by minimum age 
-Route: /games/minage/<int:minimum_age>'  
+[return to top](#boardgame-rental-api-endpoints-documentation)   
+#### GET Filter Games by minimum age 
+Route: /games/minage/\<int:minimum_age\>  
 Method/s: GET  
 Description: Search and return games base on minimum age provided  
 Authentication required: No  
@@ -948,7 +950,7 @@ example request response:
     }
 ]
 ```
-
+[return to top](#boardgame-rental-api-endpoints-documentation)   
 #### POST Create new Game for store 
 Route: /games  
 Method/s: POST  
@@ -1042,10 +1044,10 @@ example request response:
     }
 }
 ```
-
+[return to top](#boardgame-rental-api-endpoints-documentation)   
 #### PUT/PATCH Update a game 
 Route: /games/\<int:game_id\>    
-Method/s: PUT, PULL      
+Method/s: PUT, PATCH      
 Description: Update a Game details that is owned by the accessing Store account   
 Authentication required: Yes   
 Additional account permission: Have a JWT associated with a Store     
@@ -1135,7 +1137,7 @@ example request response:
     }
 }
 ```
-
+[return to top](#boardgame-rental-api-endpoints-documentation)   
 #### DELETE Delete game  
 Route: /games/\<int:game_id\>  
 Method/s: DELETE   
@@ -1161,7 +1163,7 @@ example request response:
 ```
 {}
 ```
-
+[return to top](#boardgame-rental-api-endpoints-documentation)   
 #### POST Create Category 
 Route: /games/category  
 Method/s: POST   
@@ -1192,7 +1194,7 @@ example request response:
     "name": "Traditional"
 }
 ```
-
+[return to top](#boardgame-rental-api-endpoints-documentation)   
 #### POST Create Designer 
 Route: /games/designer  
 Method/s: POST   
@@ -1226,5 +1228,290 @@ example request response:
     "last_name": "Freeman"
 }
 ```
+[return to top](#boardgame-rental-api-endpoints-documentation)   
+#### PUT/PATCH Update Category
+Route: /games/category/\<int:category_id\>   
+Method/s: PUT, PATCH     
+Description: Change Category details based on the Category id 
+Authentication required: Yes  
+Additional account permission: Have a JWT associated with a User with administrator privileges   
+<u>Query Parameters</u>    
+* Mandatory (key name, type):    
+(name, string)   
 
-update category
+* Optional (key name, type):   
+n/a   
+
+example route URI:   
+```
+127.0.0.1:5000/games/category/1
+```
+example request body:   
+```
+{
+    "name": "adventure"
+}
+```
+example request response:   
+```
+{
+    "id": 1,
+    "name": "Adventure"
+}
+```
+[return to top](#boardgame-rental-api-endpoints-documentation)   
+#### PUT/PATCH Update Designer
+Route: /games/designer/\<int:designer_id\>  
+Method/s: PUT, PATCH   
+Description: Change a Designer details based on the designer id  
+Authentication required: Yes    
+Additional account permission: Have a JWT associated with a User with administrator privileges   
+<u>Query Parameters</u>    
+* Mandatory (key name, type):    
+n/a   
+
+* Optional (key name, type):   
+(first_name, string)   
+(last_name, string)    
+
+example route URI:   
+```
+n/a   
+```
+example request body:   
+```
+{
+    "first_name": "bob",
+    "last_name": "ross"
+}
+```
+example request response:   
+```
+{
+    "id": 1,
+    "first_name": "Bob",
+    "last_name": "Ross"
+}
+```
+[return to top](#boardgame-rental-api-endpoints-documentation)   
+#### DELETE Delete Category 
+Route: /games/category/\<int:category_id\>  
+Method/s: DELETE   
+Description: Remove a Category based on supplied category id, returns empty json if successful  
+Authentication required: Yes   
+Additional account permission: Have a JWT associated with a User with administrator privileges   
+<u>Query Parameters</u>    
+* Mandatory (key name, type):    
+n/a   
+
+* Optional (key name, type):   
+n/a   
+
+example route URI:   
+```
+127.0.0.1:5000/games/category/2
+```
+example request body:   
+```
+n/a   
+```
+example request response:   
+```
+{}   
+```
+[return to top](#boardgame-rental-api-endpoints-documentation)   
+#### DELETE Delete Designer
+Route: /games/designer/\<int:designer_id\>  
+Method/s: DELETE   
+Description: Remove a Designer based on supplied designer id, returns empty json if successful  
+Authentication required: Yes 
+Additional account permission: Have a JWT associated with a User with administrator privileges   
+<u>Query Parameters</u>    
+* Mandatory (key name, type):    
+n/a   
+
+* Optional (key name, type):   
+n/a   
+
+example route URI:   
+```
+127.0.0.1:5000/games/designer/1
+```
+example request body:   
+```
+n/a   
+```
+example request response:   
+```
+{}   
+```
+[return to top](#boardgame-rental-api-endpoints-documentation)   
+### Rentals routes
+
+#### GET Get Game Rentals 
+Route: /rentals  
+Method/s: GET  
+Description: Search and return all Game Rentals  
+Authentication required: Yes   
+Additional account permission: Have a JWT associated with a User with administrator privileges   
+<u>Query Parameters</u>    
+* Mandatory (key name, type):    
+n/a   
+
+* Optional (key name, type):   
+n/a   
+
+example route URI:   
+```
+127.0.0.1:5000/rentals
+```
+example request body:   
+```
+n/a   
+```
+example request response:   
+```
+[
+    {
+        "id": 4,
+        "date": "2023-06-25",
+        "rentee_id": 2,
+        "rentee_first_name": "Sally",
+        "rentee_last_name": "McDonald",
+        "rentee_email": "sally@yahoo.com",
+        "game_id": 2,
+        "game_name": "Dominion",
+        "price_per_week": 13.49,
+        "quantity": 2,
+        "store_name": "Random Dice Ltd",
+        "store_street_number": 11,
+        "store_street_name": "Griffin st",
+        "store_suburb": "Cairns",
+        "store_postcode": 4870
+    }
+]
+```
+[return to top](#boardgame-rental-api-endpoints-documentation)   
+#### GET Get Game Rentals from Store account 
+Route: /rentals/store  
+Method/s: GET   
+Description: Search and return Game Rentals for Store that performed request  
+Authentication required: Yes 
+Additional account permission: Have a JWT associated with a Store 
+<u>Query Parameters</u>    
+* Mandatory (key name, type):    
+n/a   
+
+* Optional (key name, type):   
+n/a   
+
+example route URI:   
+```
+127.0.0.1:5000/rentals/store
+```
+example request body:   
+```
+n/a   
+```
+example request response:   
+```
+[
+    {
+        "id": 10,
+        "name": "Blood Rage",
+        "game_rent_details": [
+            {
+                "id": 6,
+                "date": "2023-05-25",
+                "rentee_id": 9,
+                "rentee_first_name": "Greg",
+                "rentee_last_name": "Layland",
+                "rentee_email": "greggory@gmail.com",
+                "price_per_week": 17.5,
+                "quantity": 1
+            }
+        ]
+    },
+    {
+        "id": 13,
+        "name": "Pandemic",
+        "game_rent_details": []
+    }
+]
+```
+[return to top](#boardgame-rental-api-endpoints-documentation)   
+#### POST Create Rental
+Route: /rentals/new   
+Method/s: POST   
+Description: Create a Game Rental based on which Store performed the request   
+Authentication required: Yes    
+Additional account permission: Have a JWT associated with a Store      
+<u>Query Parameters</u>    
+* Mandatory (key name, type):    
+(game_id, int)   
+(rentee_id, int)   
+(quantity, int)   
+
+* Optional (key name, type):   
+n/a   
+
+example route URI:   
+```
+127.0.0.1:5000/rentals/new
+```
+example request body:   
+```
+{
+    "game_id": 1,
+    "rentee_id": 1,
+    "quantity": 1
+}
+```
+example request response:   
+```
+{
+    "id": 5,
+    "date": "2023-06-29",
+    "rentee_id": 1,
+    "rentee_first_name": "John",
+    "rentee_last_name": "Smith",
+    "rentee_email": "admin@bg.com",
+    "game_id": 1,
+    "game_name": "Blood Rage",
+    "price_per_week": 17.5,
+    "quantity": 1,
+    "store_name": "Play more games Inc",
+    "store_street_number": 25,
+    "store_street_name": "Lake st",
+    "store_suburb": "Cairns",
+    "store_postcode": 4870
+}
+```
+[return to top](#boardgame-rental-api-endpoints-documentation)
+#### DELETE Delete Game Rental
+
+Route: /rentals/\<int:rental_id\>  
+Method/s: DELETE   
+Description: Remove a Game Rental record, return an empty json is successful  
+Authentication required: Yes    
+Additional account permission: Have a JWT associated with a User with administrator privileges   
+<u>Query Parameters</u>    
+* Mandatory (key name, type):    
+n/a   
+
+* Optional (key name, type):   
+n/a   
+
+example route URI:   
+```
+127.0.0.1:5000/rentals/1
+```
+example request body:   
+```
+n/a   
+```
+example request response:   
+```
+{}
+```
+[return to top](#boardgame-rental-api-endpoints-documentation)   

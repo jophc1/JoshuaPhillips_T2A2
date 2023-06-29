@@ -410,9 +410,8 @@ def update_designer(designer_id):
         designer_last_name = designer_info['last_name'].title()
     # query database to match a record by first and last name, with a designer first and last name from either default values or request data, in designers
     check_for_designer = Designer.query.where(db.and_(Designer.first_name == designer_first_name,
-                                                      Designer.last_name == designer_last_name)).first()
-    
-    if check_for_designer:
+                                                    Designer.last_name == designer_last_name)).first()
+    if check_for_designer and (check_for_designer.id != designer_id):
         return {'error': 'Cannot update, Designer already exists (cannot have more than one designer with same first and last name)'}, 401
     
     designer.first_name = designer_info.get('first_name', designer.first_name).title()
