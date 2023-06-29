@@ -26,9 +26,13 @@ As explored, we have discussed that not only is boardgaming a viable business, i
 ### <u>Functionalities and Benefits of an ORM</u>
 
 ### <u>Endpoints of this API</u>
+[Authentication routes endpoints](./docs/end_points.md#authentication-routes)
+[Game routes endpoints](./docs/end_points.md#Games-routes)   
+[Rental routes endpoints](./docs/end_points.md#Rentals-routes)
+
 
 ### <u>Entities Relationship Diagram (ERD)</u>
-
+NEEDS REWORDING 
 ![ERD of boardgame rental service database](/docs/erd_t2a2.png)
 All tables in the ERD have been normalised up to the third mode, however some duplicated fields were required to be inputted into the 'rental' and 'game_rent_detail' tables. The reason for the duplicated fields in 'rental' where it fields from 'user' is to prevent a deletion anomalie, where if a user either updates there information or deletes there account entirely, a record of crucial information is still maintained for past rentals of boardgames.    
 
