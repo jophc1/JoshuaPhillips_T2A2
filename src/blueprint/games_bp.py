@@ -1,15 +1,12 @@
 from model_schema.game import Game, GameSchema, GameUpdateSchema, MinMaxSchema
-from model_schema.user import User, UserSchema
-from model_schema.store import Store, StoreSchema
-from model_schema.game_category import GameCategory, GameCategorySchema
-from model_schema.game_designer import GameDesigner, GameDesignerSchema
+from model_schema.user import User
+from model_schema.store import Store
+from model_schema.game_category import GameCategory
+from model_schema.game_designer import GameDesigner
 from model_schema.designer import Designer, DesignerSchema, UpdateDesignerSchema
-from model_schema.category import Category, CategorySchema, VALID_CATEGORIES
+from model_schema.category import Category, CategorySchema
 from blueprint.auth_bp import is_admin, is_store
-from flask import Blueprint, request, abort
-from sqlalchemy import func
-from marshmallow.exceptions import ValidationError
-# from sqlalchemy import and_
+from flask import Blueprint, request
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from init import db
 
@@ -116,7 +113,6 @@ def add_game():
     game_info = GameSchema().load(request.json)
     
     # Check all categories are valid in list supplied
-    
     categories_id = []
     for category_name in game_info['categories']:
         category = Category.query.filter_by(name=category_name.title()).first()

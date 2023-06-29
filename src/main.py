@@ -19,16 +19,17 @@ registerable_blueprints = [
 def setup_app():
     
     app = Flask(__name__)
-    
+    # Configuration setting for database
     app.config['JWT_SECRET_KEY'] = environ.get('JWT_KEY')  #configure app with a secret key
     app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DB_URI')   #database connection string
     app.json.sort_keys = False
-    
+    # Initialize instances of SQLAlchemy, Marshmallow, BCrypt and JWT
     db.init_app(app)
     ma.init_app(app)
     jwt.init_app(app)
     bcrypt.init_app(app)
     
+    # Register all blueprints
     for bp in registerable_blueprints:
         app.register_blueprint(bp)
     
@@ -39,7 +40,6 @@ def setup_app():
     @app.errorhandler(ValidationError)
     def validate_error(err):
         return {'error': str(err)}, 400
-    
     
     
     return app

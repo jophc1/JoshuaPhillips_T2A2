@@ -1,17 +1,11 @@
-from model_schema.game import Game, GameSchema, GameUpdateSchema, MinMaxSchema
-from model_schema.user import User, UserSchema
-from model_schema.store import Store, StoreSchema
-from model_schema.game_category import GameCategory, GameCategorySchema
-from model_schema.game_designer import GameDesigner, GameDesignerSchema
+from model_schema.game import Game, GameSchema
+from model_schema.user import User
 from model_schema.game_rent_detail import GameRentDetail, GameRentDetailSchema, CreateRentalSchema
-from model_schema.designer import Designer, DesignerSchema, UpdateDesignerSchema
-from model_schema.category import Category, CategorySchema, VALID_CATEGORIES
 from blueprint.auth_bp import is_admin, is_store
-from flask import Blueprint, request, abort
-from sqlalchemy import func, desc
-from marshmallow.exceptions import ValidationError
+from flask import Blueprint, request
+from sqlalchemy import desc
 from datetime import date
-from flask_jwt_extended import get_jwt_identity, jwt_required
+from flask_jwt_extended import jwt_required
 from init import db
 
 rentals = Blueprint('rental', __name__, url_prefix='/rentals')

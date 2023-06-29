@@ -1,5 +1,6 @@
 from init import db, ma
 from marshmallow import fields
+from marshmallow.validate import Length, Range, Regexp, And
 
 
 class User(db.Model):
@@ -31,9 +32,31 @@ class UserSchema(ma.Schema):
     game_rent_details = fields.List(fields.Nested('GameRentDetailSchema', exclude=['rentee', 'rentee_first_name', 
                                                                                    'rentee_last_name', 
                                                                                    'rentee_email', 'rentee_id']))
+    first_name = fields.String(required=True, validate=And(Regexp('^[A-Za-z]+$', error='first name must only contain letters, no spaces'), 
+                                                     Length(min=1, max=30)))
+    last_name = fields.String(required=True, validate=And(Regexp('^[A-Za-z]+$', error='last name must only contain letters, no spaces'), 
+                                                     Length(min=1, max=30)))
+    email = fields.Email(required=True)
+    password = fields.String(required=True, validate=Length(min=8, max=30))
 
     class Meta:
         ordered = True
         fields = ('id', 'first_name', 'last_name', 'email', 
                   'password', 'admin', 'games', 'game_rent_details')
-        
+
+class UpdateUserSchema(ma.Schema):
+    first_name = fields.String(required=False, validate=And(Regexp('^[A-Za-z]+$', error='first name must only contain letters, no spaces'), 
+                                                     Length(min=1, max=30)))
+    last_name = fields.String(required=False, validate=And(Regexp('^[A-Za-z]+$', error='last name must only contain letters, no spaces'), 
+                                                     Length(min=1, max=30)))
+    
+    class Meta:
+        fields = ('first_name', 'last_name')
+
+
+class LoginSchema(ma.Schema):
+    email = fields.Email(required=True)
+    password = fields.String(required=True, validate=Length(min=8))
+    
+    class Meta:
+        fields = ('email','password')        
