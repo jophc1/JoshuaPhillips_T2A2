@@ -1,6 +1,7 @@
 from init import db, ma
 from marshmallow import fields
-from marshmallow.validate import Length, Regexp, Range
+from marshmallow.validate import Length, Regexp, Range, And
+from datetime import date
 
 class Game(db.Model):
     """
@@ -48,12 +49,19 @@ class GameSchema(ma.Schema):
         error='Name string must be in format [first_name last_name] e.g Alan Moon')
         ), 
         required=True, validate=Length(min=1))
+    name = fields.String(required=True, validate=And(Regexp('^[A-Za-z !,]+$', error='game name must only contain letters, spaces and special characters [!,]'), 
+                                                     Length(min=1, max=20)))
+    year = fields.Integer(required=True, validate=Range(min=800, max=date.today().year))
+    min_age = fields.Integer(required=True, validate=Range(min=1, max=18))
+    price_per_week = fields.Float(required=True, validate=Range(min=0.0))
+    quantity = fields.Integer(required=True, validate=Range(min=1))
+    owner_id = fields.Integer(required=True, validate=Range(min=1))
     
     class Meta:
         ordered = True
         fields = ('id', 'name', 'year', 'min_age', 'price_per_week', 'quantity', 
                   'game_designers', 'game_categories', 'store', 'game_rent_details', 'owner', 'owner_id', 
-                  'categories', 'designers') #game_rent_details may not be needed
+                  'categories', 'designers') 
         
 class GameUpdateSchema(ma.Schema):
     game_designers = fields.List(fields.Nested('GameDesignerSchema', only=['designer']))
@@ -68,6 +76,13 @@ class GameUpdateSchema(ma.Schema):
         ), 
         required=False, validate=Length(min=1))
 
+    name = fields.String(required=False, validate=And(Regexp('^[A-Za-z !,]+$', error='game name must only contain letters, spaces and special characters [!,]'), 
+                                                     Length(min=1, max=20)))
+    year = fields.Integer(required=False, validate=Range(min=800, max=date.today().year))
+    min_age = fields.Integer(required=False, validate=Range(min=1, max=18))
+    price_per_week = fields.Float(required=False, validate=Range(min=0.0))
+    quantity = fields.Integer(required=False, validate=Range(min=1))
+
     class Meta:
         ordered = True
         fields = ('id', 'name', 'year', 'min_age', 'price_per_week', 'quantity', 
@@ -76,8 +91,8 @@ class GameUpdateSchema(ma.Schema):
 
 class MinMaxSchema(ma.Schema):
     
-    min_price = fields.Float(required=True)
-    max_price = fields.Float(required=True)
+    min_price = fields.Float(required=True, validate=Range(min=0.0))
+    max_price = fields.Float(required=True, validate=Range(min=0.0))
     
     class Meta:
         fields = ('min_price', 'max_price')

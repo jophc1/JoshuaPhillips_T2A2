@@ -1,5 +1,6 @@
 from init import db, ma
 from marshmallow import fields
+from marshmallow.validate import Length, And, Regexp
 
 VALID_CATEGORIES = ('deck building', 'worker placement', 'abstract', 'euro', 'wargame')
 
@@ -21,6 +22,8 @@ class Category(db.Model):
 
 class CategorySchema(ma.Schema):
     game_categories = fields.List(fields.Nested('GameCategorySchema', exclude=['category']))
+    name = fields.String(required=True, validate=And(Regexp('^[A-Za-z ]+$', error='category name must be only letters and spaces'), 
+                                                     Length(min=1, max=20)))
 
     class Meta:
         ordered = True

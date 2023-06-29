@@ -1,5 +1,6 @@
 from init import db, ma
 from marshmallow import fields
+from marshmallow.validate import Range
 
 class GameRentDetail(db.Model):
     """
@@ -53,7 +54,10 @@ class GameRentDetailSchema(ma.Schema):
                   'store_postcode') # 'game' may not be needed
         
 class CreateRentalSchema(ma.Schema):
-
+    rentee_id = fields.Integer(required=True, validate=Range(min=1))
+    game_id = fields.Integer(required=True, validate=Range(min=1))
+    quantity = fields.Integer(required=True, validate=Range(min=1))
+    
     class Meta:
         ordered = True
         fields = ('rentee_id', 'game_id', 'quantity')
