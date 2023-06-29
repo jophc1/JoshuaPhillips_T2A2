@@ -1,7 +1,7 @@
 # Boardgame Rental Service API
 
-[Trello board](https://trello.com/b/azoCqVE1/boardgame-rental-service-api)
-[Link to Git repository](https://github.com/jophc1/JoshuaPhillips_T2A2)
+[Trello board](https://trello.com/b/azoCqVE1/boardgame-rental-service-api)   
+[Link to Git repository](https://github.com/jophc1/JoshuaPhillips_T2A2)   
 
 ### <u>Installation and Setup</u>
 
@@ -26,9 +26,9 @@ As explored, we have discussed that not only is boardgaming a viable business, i
 ### <u>Functionalities and Benefits of an ORM</u>
 
 ### <u>Endpoints of this API</u>
-[Authentication routes endpoints](./docs/end_points.md#authentication-routes)
-[Game routes endpoints](./docs/end_points.md#Games-routes)   
-[Rental routes endpoints](./docs/end_points.md#Rentals-routes)
+[Authentication routes endpoints](./docs/end_points.md#authentication-routes)   
+[Game routes endpoints](./docs/end_points.md#games-routes)   
+[Rental routes endpoints](./docs/end_points.md#rentals-routes)   
 
 
 ### <u>Entities Relationship Diagram (ERD)</u>
