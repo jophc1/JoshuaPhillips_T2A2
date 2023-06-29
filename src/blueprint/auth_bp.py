@@ -134,14 +134,16 @@ def update_store():
     
     store_info = UpdateStoreSchema().load(request.json)
     
-    # query database in Users to see if there is a match for reqest email
-    email_user_test = User.query.filter_by(email=store_info['email']).first()
-    # query database in Stores to see if there is a match for reqest email
-    email_store_test = Store.query.filter_by(email=store_info['email']).first()
+    if store_info.get('email'):
     
-    # if email is already used or new email does not match store identity email
-    if (email_store_test or email_user_test) and (store.email != store_info['email']):
-        return {'error': 'Cannot update email, Email already exists'}, 409
+        # query database in Users to see if there is a match for reqest email
+        email_user_test = User.query.filter_by(email=store_info['email']).first()
+        # query database in Stores to see if there is a match for reqest email
+        email_store_test = Store.query.filter_by(email=store_info['email']).first()
+        
+        # if email is already used or new email does not match store identity email
+        if (email_store_test or email_user_test) and (store.email != store_info['email']):
+            return {'error': 'Cannot update email, Email already exists'}, 409
     
     # Update store record
     store.name = store_info.get('name', store.name)
@@ -156,7 +158,7 @@ def update_store():
     # if email was changed, generate a new jwt token
     if store_info.get('email'):
         token = create_access_token(identity=[store.id, store.email], expires_delta=timedelta(minutes=180))
-        return {'store': StoreSchema(exclude=['games', 'password']).dump(store), 'token': token}
+        return {'store': StoreSchema(exclude=['games', 'password']).dump(store), 'token': token}, 200
     
     return StoreSchema(exclude=['games', 'password']).dump(store), 200
     
