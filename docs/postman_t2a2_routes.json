@@ -1,0 +1,1107 @@
+{
+	"info": {
+		"_postman_id": "ef3829ba-d069-495a-8860-e8d39b72a4fa",
+		"name": "t2a2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27614217"
+	},
+	"item": [
+		{
+			"name": "auth_bp",
+			"item": [
+				{
+					"name": "register user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"first_name\": \"Frannyy\",\n    \"last_name\": \"Rego\",\n    \"email\": \"franny1@gmail.com\",\n    \"password\": \"12345678\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:5000/register/user",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"register",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register store",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4ODAyODA4MywianRpIjoiODg1NmMwNGUtY2E4Ni00YTY4LTg2NGQtYWQ4ZDkzNzQyNWM3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6WzEsImFkbWluQGJnLmNvbSJdLCJuYmYiOjE2ODgwMjgwODMsImV4cCI6MTY4ODAzODg4M30.vkA4AMR7VdqwYb3dX-wIzsmpw3O3TY0RrJjVURjgmeo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Have fun gaming\",\n    \"street_number\": 70,\n    \"street_name\": \"Ronald Dr\",\n    \"suburb\": \"Cairns\",\n    \"postcode\": 4870,\n    \"email\": \"have@fungaming.com\",\n    \"password\": \"12345678\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:5000/register/store",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"register",
+								"store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@bg.com\",\n    \"password\": \"admin123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:5000/login/user",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"login",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login store",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"services@playmore.com\",\n    \"password\": \"12345678\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:5000/login/store",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"login",
+								"store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4ODAyODA4MywianRpIjoiODg1NmMwNGUtY2E4Ni00YTY4LTg2NGQtYWQ4ZDkzNzQyNWM3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6WzEsImFkbWluQGJnLmNvbSJdLCJuYmYiOjE2ODgwMjgwODMsImV4cCI6MTY4ODAzODg4M30.vkA4AMR7VdqwYb3dX-wIzsmpw3O3TY0RrJjVURjgmeo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"first_name\": \"John\",\n    \"last_name\": \"Daniels\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:5000/user",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update store",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4ODAzMDk5OCwianRpIjoiMWNhYmQ2ZWQtNTE4Yi00ZjdlLWIwOGYtMGE3ZjNiODJmODAxIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6WzEsInZhbGxleUBzaGFkb3dnYW1pbmcuY29tIl0sIm5iZiI6MTY4ODAzMDk5OCwiZXhwIjoxNjg4MDQxNzk4fQ.pEPraxson0g1eRoe2p8EpLAEyO3Fu2d6MI3MCw02-Lg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Valley of Shadow gaming\",\n    \"street_number\": 35,\n    \"street_name\": \"Shield St\",\n    \"suburb\": \"Cairns\",\n    \"postcode\": 4870,\n    \"email\": \"valley@shadowgaming.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:5000/store",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4ODAzMTQ2NywianRpIjoiODM2ZGMzYzYtNWI3ZS00MzczLWE4NDEtMTQwZWQwZWIxMjdjIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6WzYsImZyYW5ueTFAZ21haWwuY29tIl0sIm5iZiI6MTY4ODAzMTQ2NywiZXhwIjoxNjg4MDQyMjY3fQ.vYyYrS_ae3S7HZF3vNd3R4fdZ8pTMKBDR1xG3II3aFY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:5000/user",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete specific user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NzkyODQxNywianRpIjoiNDRjMTM3ZjAtNzA3My00NDZjLWI1MWQtNmE3MWMzNjUzYTcyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6WzEsImFkbWluQGJnLmNvbSJdLCJuYmYiOjE2ODc5Mjg0MTcsImV4cCI6MTY4NzkzOTIxN30.lmkXWsZHtU-7gF5xKm4rssPjx8xVWNvr43SkCpOmjwk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:5000/users/2",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete store",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NzgzMTQzMSwianRpIjoiNjFmZDA1NDAtNDBhNC00NDM1LWIzN2UtODIyZGJiMGM2ZGJiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6WzQsImhhdmVAZnVuZ2FtaW5nLmNvbSJdLCJuYmYiOjE2ODc4MzE0MzEsImV4cCI6MTY4Nzg0MjIzMX0.IjvuHl3jhduJun59KyaTl24addx4bNpqwVhA_eiCu7g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:5000/store",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete specific store",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4ODAzNDQ1MCwianRpIjoiOTViZjE4ZWMtMDRlNi00NDM2LTliNDUtMjkzNDMxNGQxOWNlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6WzEsImFkbWluQGJnLmNvbSJdLCJuYmYiOjE2ODgwMzQ0NTAsImV4cCI6MTY4ODA0NTI1MH0.kL22NFxehwuEFN_n7feWoNyEEhxOpdT_kGdd8KsuLQc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:5000/stores/3",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"stores",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4ODAzNDQ1MCwianRpIjoiOTViZjE4ZWMtMDRlNi00NDM2LTliNDUtMjkzNDMxNGQxOWNlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6WzEsImFkbWluQGJnLmNvbSJdLCJuYmYiOjE2ODgwMzQ0NTAsImV4cCI6MTY4ODA0NTI1MH0.kL22NFxehwuEFN_n7feWoNyEEhxOpdT_kGdd8KsuLQc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:5000/users",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get stores",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4ODAzNDQ1MCwianRpIjoiOTViZjE4ZWMtMDRlNi00NDM2LTliNDUtMjkzNDMxNGQxOWNlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6WzEsImFkbWluQGJnLmNvbSJdLCJuYmYiOjE2ODgwMzQ0NTAsImV4cCI6MTY4ODA0NTI1MH0.kL22NFxehwuEFN_n7feWoNyEEhxOpdT_kGdd8KsuLQc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:5000/stores",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"stores"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "games_bp",
+			"item": [
+				{
+					"name": "get games",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:5000/games",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"games"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get specific game",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:5000/games/5",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"games",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get owned games",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4ODAzNDQ1MCwianRpIjoiOTViZjE4ZWMtMDRlNi00NDM2LTliNDUtMjkzNDMxNGQxOWNlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6WzEsImFkbWluQGJnLmNvbSJdLCJuYmYiOjE2ODgwMzQ0NTAsImV4cCI6MTY4ODA0NTI1MH0.kL22NFxehwuEFN_n7feWoNyEEhxOpdT_kGdd8KsuLQc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:5000/games/owned",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"games",
+								"owned"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "filter games by minmax range price",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"min_price\": 12.50,\n    \"max_price\": 15.0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:5000/games/minmaxprice",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"games",
+								"minmaxprice"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "filter games by store id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:5000/games/store/1",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"games",
+								"store",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "filter games by designer",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:5000/games/designer/klaus-jurgen/wrede",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"games",
+								"designer",
+								"klaus-jurgen",
+								"wrede"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "filter games by category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:5000/games/category/euro",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"games",
+								"category",
+								"euro"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "filter games by minimum age",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:5000/games/minage/15",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"games",
+								"minage",
+								"15"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create new game for store 127.0.0.1:5000/games",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4ODAzODc4NCwianRpIjoiZGFjNDMzYjQtZDk3My00ODM5LTg2YjUtYjQ2YWUxYWI1NDg1IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6WzEsInNlcnZpY2VzQHBsYXltb3JlLmNvbSJdLCJuYmYiOjE2ODgwMzg3ODQsImV4cCI6MTY4ODA0OTU4NH0.yXL_LFHz8eaPX6EeKojDqUI2NExGzc3B2Dk4mgD2cXk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Blue Rage\",\n    \"year\": 2015,\n    \"min_age\": 15,\n    \"price_per_week\": 17.50,\n    \"quantity\": 1,\n    \"owner_id\": 1,\n    \"categories\": [\"Deck Building\", \"Euro\"],\n    \"designers\": [\"Alan Moon\", \"Matt Leecock\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:5000/games",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"games"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update a game",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4ODAzOTkyNCwianRpIjoiZmE0NWIzNjQtMGMzMS00MjgxLWE1ZTctZmQ5ZjdjYjkzYzg0IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6WzEsInNlcnZpY2VzQHBsYXltb3JlLmNvbSJdLCJuYmYiOjE2ODgwMzk5MjQsImV4cCI6MTY4ODA1MDcyNH0.5i5HIXR_Mf_AqojZGZlP7N4s_pWhjSRtaS27WprdXFk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Blood Moon\",\n    \"year\": 2015,\n    \"min_age\": 15,\n    \"price_per_week\": 17.50,\n    \"quantity\": 1,\n    \"categories\": [\"Euro\", \"Abstract\"],\n    \"designers\": [\"Alan Moon\", \"Matt Leecock\"]\n}   ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:5000/games/1",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"games",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete game (store must own game or be an admin)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4ODA0MDY1NCwianRpIjoiYTY1NWE2NzYtMjc5Yy00NDU5LTkyMWYtMWExNGQyY2VmOTZkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6WzEsInNlcnZpY2VzQHBsYXltb3JlLmNvbSJdLCJuYmYiOjE2ODgwNDA2NTQsImV4cCI6MTY4ODA1MTQ1NH0.49_56zFYornvBRG4NLYTaijuneGrfS2PvUh_2_OeBqY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:5000/games/1",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"games",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create new category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4ODA0MTA4NSwianRpIjoiOGNmNjc2OGEtNzBmOC00MjNiLWE3MDAtZWI1ZmIzMjg4N2MxIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6WzEsImFkbWluQGJnLmNvbSJdLCJuYmYiOjE2ODgwNDEwODUsImV4cCI6MTY4ODA1MTg4NX0.sjrz7y1nXlOZQhCGC0TUhpcZYKVpATjYRRl2AL5OKHI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"traditional\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:5000/games/category",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"games",
+								"category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create new designer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4ODA0MTA4NSwianRpIjoiOGNmNjc2OGEtNzBmOC00MjNiLWE3MDAtZWI1ZmIzMjg4N2MxIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6WzEsImFkbWluQGJnLmNvbSJdLCJuYmYiOjE2ODgwNDEwODUsImV4cCI6MTY4ODA1MTg4NX0.sjrz7y1nXlOZQhCGC0TUhpcZYKVpATjYRRl2AL5OKHI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"first_name\": \"Gordan\",\n    \"last_name\": \"Freeman\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:5000/games/designer",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"games",
+								"designer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4ODA0MTA4NSwianRpIjoiOGNmNjc2OGEtNzBmOC00MjNiLWE3MDAtZWI1ZmIzMjg4N2MxIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6WzEsImFkbWluQGJnLmNvbSJdLCJuYmYiOjE2ODgwNDEwODUsImV4cCI6MTY4ODA1MTg4NX0.sjrz7y1nXlOZQhCGC0TUhpcZYKVpATjYRRl2AL5OKHI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"adventure\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:5000/games/category/1",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"games",
+								"category",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update designer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4ODA0MTA4NSwianRpIjoiOGNmNjc2OGEtNzBmOC00MjNiLWE3MDAtZWI1ZmIzMjg4N2MxIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6WzEsImFkbWluQGJnLmNvbSJdLCJuYmYiOjE2ODgwNDEwODUsImV4cCI6MTY4ODA1MTg4NX0.sjrz7y1nXlOZQhCGC0TUhpcZYKVpATjYRRl2AL5OKHI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"first_name\": \"bob\",\n    \"last_name\": \"ross\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:5000/games/designer/1",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"games",
+								"designer",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4ODA0MTA4NSwianRpIjoiOGNmNjc2OGEtNzBmOC00MjNiLWE3MDAtZWI1ZmIzMjg4N2MxIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6WzEsImFkbWluQGJnLmNvbSJdLCJuYmYiOjE2ODgwNDEwODUsImV4cCI6MTY4ODA1MTg4NX0.sjrz7y1nXlOZQhCGC0TUhpcZYKVpATjYRRl2AL5OKHI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:5000/games/category/1",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"games",
+								"category",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete designer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4ODA0MTA4NSwianRpIjoiOGNmNjc2OGEtNzBmOC00MjNiLWE3MDAtZWI1ZmIzMjg4N2MxIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6WzEsImFkbWluQGJnLmNvbSJdLCJuYmYiOjE2ODgwNDEwODUsImV4cCI6MTY4ODA1MTg4NX0.sjrz7y1nXlOZQhCGC0TUhpcZYKVpATjYRRl2AL5OKHI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:5000/games/designer/1",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"games",
+								"designer",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "rentals_bp",
+			"item": [
+				{
+					"name": "get game rentals",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4ODA0NTY1NiwianRpIjoiNjFjMTE0ZmQtOTFmNC00OThmLTlhYTUtZTQ1YTYxMmVhNzk1IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6WzEsImFkbWluQGJnLmNvbSJdLCJuYmYiOjE2ODgwNDU2NTYsImV4cCI6MTY4ODA1NjQ1Nn0.hy5-eaZKicJQBTkRLSUWU9nMDm4TP3Y8MLjpplGB_p0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:5000/rentals",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"rentals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get rentals from store",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4ODA0NjEwMiwianRpIjoiYjdkOGE4MDQtYThmYy00N2E5LWEwYTgtOWI4ZjY1MDdlNWRkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6WzUsInNlcnZpY2VzQHBsYXltb3JlLmNvbSJdLCJuYmYiOjE2ODgwNDYxMDIsImV4cCI6MTY4ODA1NjkwMn0.nAuGWmgmqh_92o_vKqRxjVO-cG3A3zEEq43Nns7_qJY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:5000/rentals/store",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"rentals",
+								"store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create new rental",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4ODA0NjY5NSwianRpIjoiMWIxOTk3NWMtMDBjYS00ZGE2LWI0ZjctZDFmMTQyZjliMTUyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6WzEsInNlcnZpY2VzQHBsYXltb3JlLmNvbSJdLCJuYmYiOjE2ODgwNDY2OTUsImV4cCI6MTY4ODA1NzQ5NX0.ZkjjXyQlwjXjMlxuhTGXd-0inPXXTnrJIpKAD9225BA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"game_id\": 1,\n    \"rentee_id\": 1,\n    \"quantity\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:5000/rentals/new",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"rentals",
+								"new"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete rental",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4ODA0NTY1NiwianRpIjoiNjFjMTE0ZmQtOTFmNC00OThmLTlhYTUtZTQ1YTYxMmVhNzk1IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6WzEsImFkbWluQGJnLmNvbSJdLCJuYmYiOjE2ODgwNDU2NTYsImV4cCI6MTY4ODA1NjQ1Nn0.hy5-eaZKicJQBTkRLSUWU9nMDm4TP3Y8MLjpplGB_p0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:5000/rentals/1",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"rentals",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
