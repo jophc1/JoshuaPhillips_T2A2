@@ -298,18 +298,96 @@ game_categories = fields.List(fields.Nested('GameCategorySchema', exclude=['cate
     
 fields = ('id', 'name', 'game_categories')
 ```
-In our Category model, there is a single relationship called game_categories that connects a field category in the GameCategory Model. This field is a Nested list, which has excluded the category to prevent a circular import. By default, the Category Schema will dump id, name and game_categories.
+In our Category model, there is a single relationship called game_categories that connects a field category in the GameCategory Model and indicates a one-to-many relationship between Categories and Game_Categories. This field is a Nested list, which has excluded the category to prevent a circular import. It also indicates to continue a delete onto the model that contains game_categories (GameCategory). By default, the Category Schema will dump id, name and game_categories.
 
 #### Designers
 Designer Model relationships:
 ```python
-
+game_designers = db.relationship('GameDesigner', backref='designer', cascade='all, delete')
 ```
 Designer Schema fields (including other Models Nested fields):
 ```python
-
+game_designers = fields.List(fields.Nested('GameDesignerSchema', exclude=['designer']))
+      
+fields = ('id', 'first_name', 'last_name', 'game_designers')
 ```
+Our Designer model has one field relationship, where it refers to a field designer in GameDesigner model which will cascade delete if a designer record is removed and provides a representation of a one-to-many relationship between Designers and Game_Designers. This game_designers is a Nested list that excludes designer from its fields to prevent a circular import. The default fields return by the Schema are the first and last name of the designer and from the Nested fields contained in game_designers.
 
+#### Game_Categories
+GameCategory Model foreign keys:
+```python
+# foreign keys
+category_id = db.Column(db.Integer, db.ForeignKey('categories.id', ondelete='Cascade'), nullable=False)
+game_id = db.Column(db.Integer, db.ForeignKey('games.id', ondelete='Cascade'), nullable=False)  
+```
+GameCategoy Schema fields (including other Models Nested fields):
+```python
+category = fields.Nested('CategorySchema', exclude=['game_categories'])
+game = fields.Nested('GameSchema', exclude=['game_categories', 'game_rent_details', 'owner', 'owner_id'])
+    
+fields = ('id', 'category', 'game')
+```
+This model contains a foreign key that connects to the primary key in Categories and a foreign key that connects to the primary key in Games. In the Schema there are two nested list fields that link to the Category Schema and Game Schema. The Schema will dump by default the id, nested fields in category and nested fields in game.
+
+#### Game_Designers
+GameDesigner Model foreign keys:
+```python
+designer_id = db.Column(db.Integer, db.ForeignKey('designers.id', ondelete='Cascade'), nullable=False)
+game_id = db.Column(db.Integer, db.ForeignKey('games.id', ondelete='Cascade'), nullable=False)
+```
+GameDeigner Schema fields (including other Models Nested fields):
+```python
+designer = fields.Nested('DesignerSchema', exclude=['game_designers'])
+game = fields.Nested('GameSchema', exclude=['game_designers', 'game_rent_details', 'owner', 'owner_id'])
+    
+fields = ('id', 'designer','game')
+```
+In the GameDesigner model, two foreign keys are present that connect up to the primary keys in designers and games. The Schema contains two nested field lists that will return by default the id, nested fields in designer and nested fields in game.
+
+#### Stores
+Store Model relationships:
+```python
+games = db.relationship('Game', backref='store', cascade='all, delete')
+```
+Store Schema fields (including other Models Nested fields):
+```python
+games = fields.List(fields.Nested('GameSchema', exclude=['store']))
+
+fields = ('id', 'name', 'street_number', 'street_name', 'suburb', 
+        'postcode', 'email', 'password', 'games')
+```
+The Store Model contains a relationship that connects a games field to a store field in the Game model, indicating a one-to-many relationship, where if games is deleted it will cascade to all the related records in Games table and delete them as well. The Store Schema only contains one nested fields list where the Schema will by default return the store details and login details (though in all routes the password is ommited for security reasons) and the nested fields in games.   
+
+#### Users
+User Model relationships:
+```python
+games = db.relationship('Game', backref='owner', cascade='all, delete')
+game_rent_details = db.relationship('GameRentDetail', backref='rentee')
+```
+User Schema fields (including other Models Nested fields):
+```python
+games = fields.List(fields.Nested('GameSchema', exclude=['game_rent_details','owner']))
+game_rent_details = fields.List(fields.Nested('GameRentDetailSchema', exclude=['rentee', 'rentee_first_name', 'rentee_last_name', 'rentee_email', 'rentee_id']))
+
+fields = ('id', 'first_name', 'last_name', 'email', 
+        'password', 'admin', 'games', 'game_rent_details')
+```
+The User Model has one relationship that connects a games field to a game field in the Game Schema, indicating a one-to-many relationship. Another relationship for a field game_rent_details creates a relationship to a rentee field in GameRentDetail Model, indicating a one-to-many relationship. The User Schema contains two nested field lists and returns the fields of the user details (except the password in all routes for security purposes) and the nested fields in games and game_rent_details.
+
+#### Game_Rent_Details
+GameRentDetail Model foreign keys:
+```python
+game_id = db.Column(db.Integer, db.ForeignKey('games.id', ondelete='SET NULL'))
+rentee_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='SET NULL'))
+```
+GameRentDetail Schema fields:
+```python
+fields = ('id', 'date', 'rentee_id', 'rentee_first_name', 'rentee_last_name', 'rentee_email', 
+        'game_id', 'game_name', 'price_per_week', 'quantity', 'store_name', 
+        'store_street_number', 'store_street_name', 'store_suburb', 
+        'store_postcode')
+```
+The GameRentDetail model contains two foreign keys that link up to the primary key in games and users. Both of these foreign keys indicate that a deletion will set the value to NULL instead of deletion that has been the case with other Models. The GameRentDetail Schema contains no nested fields, however it does contain fields that are most copies from other table records in the case of deletion. Most of these fields will be returned/dumped though the Schema except for some ids that irrelevant to a game rental details.
 
 ### <u>Project management and task allocation methods</u>
 

@@ -44,7 +44,6 @@ class GameRentDetail(db.Model):
     
 class GameRentDetailSchema(ma.Schema):
     
-    
     class Meta:
         ordered = True
         fields = ('id', 'date', 'rentee_id', 'rentee_first_name', 'rentee_last_name', 'rentee_email', 
