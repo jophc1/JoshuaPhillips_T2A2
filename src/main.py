@@ -45,5 +45,8 @@ def setup_app():
     def bad_request(err):
         return {'error': f'No JSON in request body, more infomation here: {err}'}
     
+    @app.errorhandler(415)
+    def no_request(err):
+        return {'error': 'No JSON in request body'}
     
     return app
