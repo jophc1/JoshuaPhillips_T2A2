@@ -114,8 +114,9 @@ By providing this object to table relation, it makes it easier to do CRUD operat
 
 ![table_example](./docs/table_exp.png)
 
-As seen, by using python syntax we can create a table with fields that contain constraints, primary keys, foreign keys and relationships to other tables by a relatively simpler syntax than what would need to be done in raw SQL code. This also simplifies the process of database data manipulation, for example when a new record in table is being inserted verses creating an instance of a model, adding it to a transaction and committing it:
-![model_instance_example](./docs/model_instance_exp.png)
+As seen, by using python syntax we can create a table with fields that contain constraints, primary keys, foreign keys and relationships to other tables by a relatively simpler syntax than what would need to be done in raw SQL code. This also simplifies the process of database data manipulation, for example when a new record in table is being inserted verses creating an instance of a model, adding it to a transaction and committing it:   
+
+![model_instance_example](./docs/model_instance_exp.png)   
 
 ```
 INSERT INTO games(name, year, min_age, price_per_week, quantity, store_id, owner_id)
