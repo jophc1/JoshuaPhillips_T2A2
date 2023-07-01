@@ -173,7 +173,7 @@ All tables in the ERD have been normalised up to the third mode, however some du
 
 Keeping copies of these fields is important for record keeping as it allows us to maintain integrity of past rentals of board games, but also keeps accurate information which could be necessary for financial or taxation purposes. 
 
-### <u>Implementation of Database relations in the application</u>
+### <u>Database relations in the application</u>
 
 #### List of Entities
 * <u>Stores</u>: contains name, address and login details for a store that will be renting out board games
@@ -216,8 +216,99 @@ A game can be listed under multiple different categories, and a category can con
 
 A user can rent out many different games, and a game can be rented out by multiple people at different times. To achieve this relationship, a joining table called 'game_rent_details' was created which lists the user id as the rentee id and the game id. It also lists a copy of some of the game details, the rentees information and the store that is renting the game out. 
 
-### <u>Relationships of the project models</u>
+### <u>Project model relationships</u>
 
+From the ERD that was designed, a python object representation can now be developed with the use a SQLAlchemy class of a Model to represent a table in a database. First we have to create a Model of each table that is basically an extension of the Model class provided by SQLAlchemy:
+
+```python
+class Game(db.Model):
+    __tablename__ = 'games'
+    # primary key
+    id = db.Column(db.Integer, primary_key=True)
+    # field names
+    name = db.Column(db.String, nullable=False)
+    year = db.Column(db.Integer, nullable=False)
+    min_age = db.Column(db.Integer, nullable=False)
+    price_per_week = db.Column(db.Float, nullable=False)
+    quantity = db.Column(db.Integer, default=0)
+    
+    # foreign keys
+    store_id = db.Column(db.Integer, db.ForeignKey('stores.id', ondelete='Cascade'), nullable=False)
+    owner_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='Cascade'), nullable=False)
+```
+As seen in this Game model, the fields of a table are represented as columns with parameters to indicate the type, constraints, primary and foreign keys.   
+
+To show the relationships that tables can have with each other (one-to-one, one-to-many), we can specify another field in the model that will form a relationship to another model:
+
+```python
+# field relationships
+    game_designers = db.relationship('GameDesigner', backref='game', cascade='all, delete')
+    game_categories = db.relationship('GameCategory', backref='game', cascade='all, delete')
+    game_rent_details = db.relationship('GameRentDetail', backref='game')
+```
+There fields, that use the relationship method of a SQLAlchemy instance in the form of 'db' shows that three fields relate to other models which will contain their own field that will refer back to these fields. In the relationship parameters, a model name is specificed, followed by the name of the field that this will relate to (e.g. game_designers forms a connection to game, that is located in the GameDesigner model) through the use of 'backref'. Next we'll discuss how models relate to each other in this API by using our Game model as an example.
+
+#### Games
+```python
+# foreign keys
+    store_id = db.Column(db.Integer, db.ForeignKey('stores.id', ondelete='Cascade'), nullable=False)
+    owner_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='Cascade'), nullable=False)
+    
+    # field relationships
+    game_designers = db.relationship('GameDesigner', backref='game', cascade='all, delete')
+    game_categories = db.relationship('GameCategory', backref='game', cascade='all, delete')
+    game_rent_details = db.relationship('GameRentDetail', backref='game')
+```
+Our Game model contains two foreign key, one that connects to the primary key in stores through the store id and another that connects to the primary key in users to the user id. These foreign keys have been set to delete on a cascade, meaning if either a user of store that relates to a record is deleted, the game record is also deleted.  
+
+We also have a one-to-many relationship to GameDesigner, GameCategory and GameRentDetail models where two of these specify to delete the related records in the other models if a record in this model is deleted (aka it'll cascade delete).  
+
+When we come to return a json data back to a client, we can also use a Schema that is part of Marshmallow which can allow us to seralize a model object into a python dictionary that can be jsonified. The advantage of this is that we can specify which fields are return and what to exclude, with our Game Schema returning by default the folloing fields:
+
+```python   
+fields = ('id', 'name', 'year', 'min_age', 'price_per_week', 'quantity', 
+        'game_designers', 'game_categories', 'store', 'game_rent_details', 'owner', 'owner_id', 
+        'categories', 'designers') 
+```
+
+All of these fields except for categories and designers, which are used to load for a specific route, and the fields native to the Game model can be related to another Model Schema which can have their own fields, therefore we can choose the fields that will be displayed in the json:
+
+```python
+game_designers = fields.List(fields.Nested('GameDesignerSchema', only=['designer']))
+game_categories = fields.List(fields.Nested('GameCategorySchema', only=['category']))
+game_rent_details = fields.List(fields.Nested('GameRentDetailSchema', exclude=['game_id', 'game_name', 'store_name', 
+                                                                                    'store_street_number', 'store_street_name', 
+                                                                                    'store_suburb', 'store_postcode'])) 
+owner = fields.Nested('UserSchema', exclude=['games', 'game_rent_details', 'password', 'admin'])
+store = fields.Nested('StoreSchema', exclude=['games', 'password'])
+```
+
+Our field variables game_designers, game_categories, game_rent_details are Lists, meaning that they can contain more than one value so we have to put these Nested fields into a List method. Also while not specified in the Game Model, there are two more field relationships called owner and store, however because of the way backref works it creates it behind the scenes verses another parameter called back_populates. All these nested fields will indicate which Schema they relate to and if there are any excluded fields from those Schemas, which can be important as this can prevent a circlar imports from occuring.   
+
+All of these ways that foreign keys are used, fields that have relationships pointing to other fields in other models and the use of Schemas that will be used to return json data is also used in other models are all used in similar ways in other models, only differing in what fields their Schemas will return and the establishment of relationships.   
+
+#### Categories
+Category Model relationships:
+```python
+    game_categories = db.relationship('GameCategory', backref='category', cascade='all, delete')
+```
+Category Schema fields (including other Models Nested fields)   
+```python
+game_categories = fields.List(fields.Nested('GameCategorySchema', exclude=['category']))
+    
+fields = ('id', 'name', 'game_categories')
+```
+In our Category model, there is a single relationship called game_categories that connects a field category in the GameCategory Model. This field is a Nested list, which has excluded the category to prevent a circular import. By default, the Category Schema will dump id, name and game_categories.
+
+#### Designers
+Designer Model relationships:
+```python
+
+```
+Designer Schema fields (including other Models Nested fields):
+```python
+
+```
 
 
 ### <u>Project management and task allocation methods</u>
