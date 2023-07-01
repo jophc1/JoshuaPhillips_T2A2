@@ -297,3 +297,4 @@ def get_store(store_id):
     stmt = db.select(Store).filter_by(id=store_id)
     return db.session.scalar(stmt)
 
+

@@ -102,8 +102,24 @@ A downside though to using PostgreSQL is that performance can be affected if lar
    
 Overall PostgreSQL is a great database management system as it is open source, has excellent data integrity functionality and is relatively easy to use, all which are desirable for this API.    
 
-### <u>Functionalities and Benefits of an ORM</u>
+### <u>Object Relation Mapper (ORM) functionality and benefits</u>
 
+An ORM is generally a software or application that usually connects an API to a database where it essentially acts as a translator for objects in object-oriented programming and the data that is stored in a database. This basically provides a level of abstraction where instead of having to understand and write long complex SQL code, a ORM can provide “mapping” functionality which is a way to relate objects, or “models” which is what is used in the ORM SQLAlchemy that is used with this API, to the tables in a database. This is beneficial as abstracting the process of SQL querying can also reduce the likelihood of an SQL injection attack from being performed as there is no direct connection from the API and the database (Liang, 2021) (Ellingwood, 2023). 
+
+By providing this object to table relation, it makes it easier to do CRUD operations so that data in a database can be queried or manipulated without having to have a deep understanding of the underlying SQL queries that is performed in the database. An example of how a model class from SQLAlchemy can represent a table in PostgreSQL:
+
+![model_example](./docs/model_exp.png)
+
+![table_example](./docs/table_exp.png)
+
+As seen, by using python syntax we can create a table with fields that contain constraints, primary keys, foreign keys and relationships to other tables by a relatively simpler syntax than what would need to be done in raw SQL code. This also simplifies the process of database data manipulation, for example when a new record in table is being inserted verses creating an instance of a model, adding it to a transaction and committing it:
+![model_instance_example](./docs/model_instance_exp.png)
+
+```
+INSERT INTO games(name, year, min_age, price_per_week, quantity, store_id, owner_id)
+VALUES (‘Blood Rage’, 2015, 15, 17.50, 4, 1, 2);
+```
+As seen with both table creation and data record insertion, an ORM abstracts and makes it easier to perform SQL operations without having to write long SQL code. This is the main reason many developers favour using an ORM as it can speed up development times and provide the ability to create relatively complex SQL operations in a programming language that they are more comfortable in.
 
 
 
@@ -113,16 +129,13 @@ Overall PostgreSQL is a great database management system as it is open source, h
 [Game routes endpoints](./docs/end_points.md#games-routes)   
 [Rental routes endpoints](./docs/end_points.md#rentals-routes)   
 
-Optional: If you have Postman installed (https://learning.postman.com/docs/getting-started/installation-and-updates/), there is a json file located in ```./docs/postman_t2a2_routes.json``` that contains all routes used in this API that can be imported into Postman for testing purposes (more info on importing here: https://learning.postman.com/docs/getting-started/importing-and-exporting-data/#importing-data-into-postman).
+Optional: If you have Postman installed ([installation guide here](https://learning.postman.com/docs/getting-started/installation-and-updates/)), there is a json file located in ```./docs/postman_t2a2_routes.json``` that contains all routes used in this API that can be imported into Postman for testing purposes (more info on importing [here](https://learning.postman.com/docs/getting-started/importing-and-exporting-data/#importing-data-into-postman)).
 
 ### <u>Entities Relationship Diagram (ERD)</u>
-NEEDS REWORDING 
 ![ERD of boardgame rental service database](/docs/erd_t2a2.png)
-All tables in the ERD have been normalised up to the third mode, however some duplicated fields were required to be inputted into the 'rental' and 'game_rent_detail' tables. The reason for the duplicated fields in 'rental' where it fields from 'user' is to prevent a deletion anomalie, where if a user either updates there information or deletes there account entirely, a record of crucial information is still maintained for past rentals of boardgames.    
+All tables in the ERD have been normalised up to the third mode, however some duplicated fields were required to be inputted into the 'game_rent_details' table. The reason for the duplicated fields in 'game_rent_details', where it takes fields from 'users' and 'games', is to prevent a deletion anomalie, where if a user either updates their information or deletes their account entirely, a record of crucial information is still maintained for past rentals of boardgames, which can also happen if a game is deleted. As a game record also contains the store id, a record of the store name and address is also need in case that the store deletes their account.   
 
-The same scenario happens with 'game_rent_detail', where it duplicates some fields from 'game' and 'store'. If either a games weekly rental price is changed or a game is removed, a copy of the rental weekly price and boardgame name is kept. Likewise a copy of the store name and address is also stored in the case that the store is removed or the store no longer hosts that particular game.
-
-Keeping copies of these fields in both of these tables is important for record keeping, as it allows us to maintain integrity of past rentals of board games, but also keeps accurate information which could be necessary for financial or taxation purposes.
+Keeping copies of these fields is important for record keeping as it allows us to maintain integrity of past rentals of board games, but also keeps accurate information which could be necessary for financial or taxation purposes.   
 
 ### <u>Third party services used in the API</u>
 
