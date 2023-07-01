@@ -41,5 +41,9 @@ def setup_app():
     def validate_error(err):
         return {'error': str(err)}, 400
     
+    @app.errorhandler(400)
+    def bad_request(err):
+        return {'error': f'No JSON in request body, more infomation here: {err}'}
+    
     
     return app
