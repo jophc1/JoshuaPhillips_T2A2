@@ -194,29 +194,31 @@ While a store can have many different games to rent out, a game can only belong 
 
 #### Users and Games - One to many relationship
 
-* insert picture here of users and games
+![one-many-users-games](./docs/r9%20database%20relations/users_games_1M.png)
 
 A user can own many different board games, while a game only owned by one person. Even though it can be possible to own a board game (.e.g couples), for simplicity sakes it was decided that only one owner would be registered to a game.
 
 #### Games and Designers - many to many relationship
 
-* insert picture here of games and designers
+![games and designers many-many](./docs/r9%20database%20relations/games_designers_MM.png)
 
 It is possible for a game to have multiple designers that worked on a board game, and a designer can have created many games. To accomadate this relatioship, a joining table called 'game_designers' was created which lists the game id's and designer id's. 
 
 #### Games and Categories - many to many relationship
 
-* insert picture here of games and categories
+![games and categories many many](./docs/r9%20database%20relations/games_categories_MM.png)
 
 A game can be listed under multiple different categories, and a category can contain multiple games. To achive this relationship, a joining table 'game_categories' was created that lists the game id's and category id's
 
 #### Users and Games - many to many relationship
 
-* insert picture here of games and users with game rentals table
+![games to users many many](./docs/r9%20database%20relations/games_users_MM.png)
 
 A user can rent out many different games, and a game can be rented out by multiple people at different times. To achieve this relationship, a joining table called 'game_rent_details' was created which lists the user id as the rentee id and the game id. It also lists a copy of some of the game details, the rentees information and the store that is renting the game out. 
 
 ### <u>Relationships of the project models</u>
+
+
 
 ### <u>Project management and task allocation methods</u>
 
