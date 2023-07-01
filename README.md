@@ -49,7 +49,7 @@ Terminal line should look something like this:
 ```   
 Install dependencies and packages through requirements.txt file:   
 ```
-python3 -m pip install -r requirement.txt
+python3 -m pip install -r requirements.txt
 ```   
 In 'src' directory, locate '.env.sample' file. Change this to '.env' and modify the variables within to include the database name, user and user password (more infomation in file):
 
@@ -66,8 +66,8 @@ flask db seed
 ```   
 From these seeds, an administrator user credentials is generated that will be required for some routes:   
 ```
-email = admin@bg.com
-password = admin123
+"email": "admin@bg.com"
+"password": "admin123"
 ```   
 Now the flask application can be ran through PORT 5000 (can be changed in .flaskenv):
 ```
