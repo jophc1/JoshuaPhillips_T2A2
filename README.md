@@ -51,7 +51,7 @@ Install dependencies and packages through requirements.txt file:
 ```
 python3 -m pip install -r requirement.txt
 ```   
-In 'src' directory, locate '.env.sample' file. Change this to '.env' and add the required fields (more infomation in file):
+In 'src' directory, locate '.env.sample' file. Change this to '.env' and modify the variables within to include the database name, user and user password (more infomation in file):
 
 ```
 DB_URI="postgresql+psycopg2://example_user:examplepassword@localhost:5432/example_db"
@@ -70,7 +70,9 @@ email = admin@bg.com
 password = admin123
 ```   
 Now the flask application can be ran through PORT 5000 (can be changed in .flaskenv):
-```flask run```
+```
+flask run
+```
 
 
 ### <u>Identification of problem that is solved by this app</u>
@@ -131,35 +133,89 @@ As seen with both table creation and data record insertion, an ORM abstracts and
 
 Optional: If you have Postman installed ([installation guide here](https://learning.postman.com/docs/getting-started/installation-and-updates/)), there is a json file located in ```./docs/postman_t2a2_routes.json``` that contains all routes used in this API that can be imported into Postman for testing purposes (more info on importing [here](https://learning.postman.com/docs/getting-started/importing-and-exporting-data/#importing-data-into-postman)).
 
+### <u>Third party services used in the API</u>
+##### Flask
+Flask was chosen as the framework for the development for this API as it is python based, is open source and while it may lack the more advanced functionality that may be found in other API frameworks, it contains enough features to implement a RESTful (Representational State Transfer) API which this project requires (Bharadwaj, 2022).
+
+
+##### SQLAlchemy
+SQLAlchemy is a python based ORM that provides an interface between the API and database to provide CRUD functionality without the need to write complex SQL code (Makai, 2022).
+
+##### Marshmallow
+Marshmallow is an additional library that assists with our ORM SQLAlchemy to provide serialization or deserialization of python dictionaries and SQLAlchemy model objects. This will be mainly used with a ‘Schema’ class that can either dump (serialize) an SQLAlchemy model to a Python dictionary to where can be converted to JSON. Likewise, it can be loaded through a Schema class (deserialize) to take in JSON data and convert it to a Python dictionary (Nguyen, 2020). 
+
+##### psycopg2-binary
+As SQLAlchemy ORM can be used with different database management systems, an additional package called pyscopg2 is required to provide a database adaptor so that SQLAlchemy can be used with PostgreSQL. The package ‘psycopg2-binary’ is a simplified version of ‘psycopg2’ which lacks more advanced features but works without needing to do additional setup steps. For this reason and considering the scope of the API, we only need psycopg2-binary (pysql.tecladocode.com, 2023) (psycopg.org, 2023).
+
+##### python-dotenv
+Python-dotenv is a package that allows our key-value pairs that are in an .env file to be loaded in as environmental variables. As an .env file usually contains sensitive variables like our database connection string and our JWT secret key, python-dotenv enables these variables to be used in our API. It also imports our variables from .flaskenv, which contains flask application configuration values like server port number, default directory for running the flask app and toggling debugging mode (Sasidharan, 2021).
+
+##### flask-sqlalchemy
+Flask-sqlalchemy is a package that simplifies the use of SQLAlchemy by providing quality of life features, like sessions that act as a representation of a transaction (flask-sqlalchemy.palletsprojects.com, 2023).
+
+##### flask-marshmallow
+Flask-marshmallow is the main package that integrates Marshmallow into Flask, thereby allowing serialization/deserialization of python objects (Loria, 2023).
+
+##### marshmallow-sqlalchemy
+Provides an integration layer between Marshmallow and SQLAlchemy so that SQLAlchemy models can be serialized/deserialized (Loria, 2023).
+ 
+##### flask-bcrypt
+Flask-bcrypt is a package that provides functionality to convert a string with a hashing algorithm to create an encrypted representation. This is useful for sensitive data like passwords as the password data in a database is stored encrypted, so if there is a data breach the password is practically impossible to decrypt (Countryman, 2023).
+
+
+##### flask-jwt-extended
+This package is for implementing the use of JWT (JSON Web Token) for authorization purposes. A JWT can be generated for an authenticated user which can in turn be provided back to the API which will check if it is a valid JWT and optionally if the identity of the owner of the JWT still exists in the database. While this is a secure way of authorization as the token is only stored on the client's side, this makes it difficult to log out a user, but for the purposes of this API is appropriate as storing user login information is not required (flask-jwt-extended.readthedocs.io, 2023).
+
 ### <u>Entities Relationship Diagram (ERD)</u>
 ![ERD of boardgame rental service database](/docs/erd_t2a2.png)
 All tables in the ERD have been normalised up to the third mode, however some duplicated fields were required to be inputted into the 'game_rent_details' table. The reason for the duplicated fields in 'game_rent_details', where it takes fields from 'users' and 'games', is to prevent a deletion anomalie, where if a user either updates their information or deletes their account entirely, a record of crucial information is still maintained for past rentals of boardgames, which can also happen if a game is deleted. As a game record also contains the store id, a record of the store name and address is also need in case that the store deletes their account.   
 
-Keeping copies of these fields is important for record keeping as it allows us to maintain integrity of past rentals of board games, but also keeps accurate information which could be necessary for financial or taxation purposes.   
-
-### <u>Third party services used in the API</u>
-
-Flask
-
-SQLAlchemy
-
-Marshmallow
-
-Psycopg2-binary
-
-Python-Dotenv
-
-Flask-SQLAlchemy
-
-Flask-Marshmallow
-
-Flask-Bcrypt
-
-Flask-JWT-Extended
-
-### <u>Relationships of the project models</u>
+Keeping copies of these fields is important for record keeping as it allows us to maintain integrity of past rentals of board games, but also keeps accurate information which could be necessary for financial or taxation purposes. 
 
 ### <u>Implementation of Database relations in the application</u>
+
+#### List of Entities
+* <u>Stores</u>: contains name, address and login details for a store that will be renting out board games
+* <u>Users</u>: contains name and login details for a user. This user can both own and rent out board games with relation to a store.
+* <u>Games</u>: has details of a board game, like name, year, rent price, age restriction and quantity that are out for loan.
+* <u>Designers</u>: contains the first and last name of a board game designer.
+* <u>Game_designers</u>: joining table between games and designers. Contains a game and designer id's to show that a game and designer have a many-to-many relationship.
+* <u>Categories</u>: has a category name. Intended to help group board games into different groups.
+* <u>Game_categories</u>: joining table for games and categories. Contains a game and category id's which highlights a many-to-many relationship between them.
+* <u>Game_rent_details</u>: joining table between users and games, intended to show a many-to-many relationship. Contains game id, user id and a list of fields from games, users and stores which is intended to provide backup details in the case of a record of a user, store or game being deleted. 
+
+
+#### Stores and Games - One to many relationship
+
+* insert picture here of stores and games
+
+While a store can have many different games to rent out, a game can only belong to a single store. This was done as a game is an owned object by an individual, therefore you cannot have a game being rented out by multiple stores
+
+#### Users and Games - One to many relationship
+
+* insert picture here of users and games
+
+A user can own many different board games, while a game only owned by one person. Even though it can be possible to own a board game (.e.g couples), for simplicity sakes it was decided that only one owner would be registered to a game.
+
+#### Games and Designers - many to many relationship
+
+* insert picture here of games and designers
+
+It is possible for a game to have multiple designers that worked on a board game, and a designer can have created many games. To accomadate this relatioship, a joining table called 'game_designers' was created which lists the game id's and designer id's. 
+
+#### Games and Categories - many to many relationship
+
+* insert picture here of games and categories
+
+A game can be listed under multiple different categories, and a category can contain multiple games. To achive this relationship, a joining table 'game_categories' was created that lists the game id's and category id's
+
+#### Users and Games - many to many relationship
+
+* insert picture here of games and users with game rentals table
+
+A user can rent out many different games, and a game can be rented out by multiple people at different times. To achieve this relationship, a joining table called 'game_rent_details' was created which lists the user id as the rentee id and the game id. It also lists a copy of some of the game details, the rentees information and the store that is renting the game out. 
+
+### <u>Relationships of the project models</u>
 
 ### <u>Project management and task allocation methods</u>
 
