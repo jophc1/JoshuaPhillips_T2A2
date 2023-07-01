@@ -242,28 +242,28 @@ To show the relationships that tables can have with each other (one-to-one, one-
 
 ```python
 # field relationships
-    game_designers = db.relationship('GameDesigner', backref='game', cascade='all, delete')
-    game_categories = db.relationship('GameCategory', backref='game', cascade='all, delete')
-    game_rent_details = db.relationship('GameRentDetail', backref='game')
+game_designers = db.relationship('GameDesigner', backref='game', cascade='all, delete')
+game_categories = db.relationship('GameCategory', backref='game', cascade='all, delete')
+game_rent_details = db.relationship('GameRentDetail', backref='game')
 ```
 There fields, that use the relationship method of a SQLAlchemy instance in the form of 'db' shows that three fields relate to other models which will contain their own field that will refer back to these fields. In the relationship parameters, a model name is specificed, followed by the name of the field that this will relate to (e.g. game_designers forms a connection to game, that is located in the GameDesigner model) through the use of 'backref'. Next we'll discuss how models relate to each other in this API by using our Game model as an example.
 
 #### Games
 ```python
 # foreign keys
-    store_id = db.Column(db.Integer, db.ForeignKey('stores.id', ondelete='Cascade'), nullable=False)
-    owner_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='Cascade'), nullable=False)
+store_id = db.Column(db.Integer, db.ForeignKey('stores.id', ondelete='Cascade'), nullable=False)
+owner_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='Cascade'), nullable=False)
     
-    # field relationships
-    game_designers = db.relationship('GameDesigner', backref='game', cascade='all, delete')
-    game_categories = db.relationship('GameCategory', backref='game', cascade='all, delete')
-    game_rent_details = db.relationship('GameRentDetail', backref='game')
+# field relationships
+game_designers = db.relationship('GameDesigner', backref='game', cascade='all, delete')
+game_categories = db.relationship('GameCategory', backref='game', cascade='all, delete')
+game_rent_details = db.relationship('GameRentDetail', backref='game')
 ```
 Our Game model contains two foreign key, one that connects to the primary key in stores through the store id and another that connects to the primary key in users to the user id. These foreign keys have been set to delete on a cascade, meaning if either a user of store that relates to a record is deleted, the game record is also deleted.  
 
 We also have a one-to-many relationship to GameDesigner, GameCategory and GameRentDetail models where two of these specify to delete the related records in the other models if a record in this model is deleted (aka it'll cascade delete).  
 
-When we come to return a json data back to a client, we can also use a Schema that is part of Marshmallow which can allow us to seralize a model object into a python dictionary that can be jsonified. The advantage of this is that we can specify which fields are return and what to exclude, with our Game Schema returning by default the folloing fields:
+When we come to return a json data back to a client, we can also use a Schema that is part of Marshmallow which can allow us to seralize a model object into a python dictionary that can be jsonified. The advantage of this is that we can specify which fields are return and what to exclude, with our Game Schema returning by default the following fields:
 
 ```python   
 fields = ('id', 'name', 'year', 'min_age', 'price_per_week', 'quantity', 
@@ -290,7 +290,7 @@ All of these ways that foreign keys are used, fields that have relationships poi
 #### Categories
 Category Model relationships:
 ```python
-    game_categories = db.relationship('GameCategory', backref='category', cascade='all, delete')
+game_categories = db.relationship('GameCategory', backref='category', cascade='all, delete')
 ```
 Category Schema fields (including other Models Nested fields)   
 ```python
