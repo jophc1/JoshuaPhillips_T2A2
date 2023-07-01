@@ -187,7 +187,7 @@ Keeping copies of these fields is important for record keeping as it allows us t
 
 #### Stores and Games - One to many relationship
 
-* insert picture here of stores and games
+![one-many-store-games](./docs/r9%20database%20relations/store_game_1M.png)
 
 While a store can have many different games to rent out, a game can only belong to a single store. This was done as a game is an owned object by an individual, therefore you cannot have a game being rented out by multiple stores
 
