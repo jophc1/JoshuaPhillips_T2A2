@@ -4,7 +4,7 @@
 [Link to Git repository](https://github.com/jophc1/JoshuaPhillips_T2A2)   
 
 ### <u>Installation and Setup</u>
-Requirements:
+Requirements:   
 PostgreSQL [download guide here](https://www.postgresql.org/download/)   
 Python3 [download guide here](https://www.python.org/downloads/)   
 
