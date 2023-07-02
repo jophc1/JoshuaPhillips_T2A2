@@ -7,10 +7,10 @@
    
 ### Authentication routes   
 #### POST Register User
-Route: /register/user 
+Route: /register/user    
 Method/s: POST 
 Description: Allows a new user account to be created with a JWT returned  
-Authentication required: No  
+Authentication required: No    
 Additional account permission: No
 <u>Query Parameters</u>   
 * Mandatory (key name, type):  
