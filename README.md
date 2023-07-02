@@ -5,8 +5,8 @@
 
 ### <u>Installation and Setup</u>
 Requirements:
-PostgreSQL [download guide here](https://www.postgresql.org/download/)
-Python3 [download guide here](https://www.python.org/downloads/)
+PostgreSQL [download guide here](https://www.postgresql.org/download/)   
+Python3 [download guide here](https://www.python.org/downloads/)   
 
 Git Clone the file to a desired location, locate file through terminal and change directory to the 'src' folder e.g. ```jophc@Joshs-MacBook-Pro src %```.   
    
