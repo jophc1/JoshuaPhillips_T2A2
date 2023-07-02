@@ -11,7 +11,7 @@ Route: /register/user
 Method/s: POST   
 Description: Allows a new user account to be created with a JWT returned  
 Authentication required: No    
-Additional account permission: No
+Additional account permission: No   
 <u>Query Parameters</u>   
 * Mandatory (key name, type):  
 (first_name, string)   
