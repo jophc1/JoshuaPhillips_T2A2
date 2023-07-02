@@ -51,7 +51,7 @@ Install dependencies and packages through requirements.txt file:
 ```
 python3 -m pip install -r requirements.txt
 ```   
-In 'src' directory, locate '.env.sample' file. Change this to '.env' and modify the variables within to include the database name, user and user password (more infomation in file):
+In 'src' directory, locate '.env.sample' file (may be hidden). Change this to '.env' and modify the variables within to include the database name, user and user password (more infomation in file):
 
 ```
 DB_URI="postgresql+psycopg2://example_user:examplepassword@localhost:5432/example_db"
@@ -79,17 +79,17 @@ flask run
 
 Boardgaming is a increasing popular gaming hobby that has been gaining traction over recent years, with many new board game titles released each year. There are many websites that sell games, search engines to point you towards good sales for board games and even rental services of boardgames offered by individual businesses. However the access of a network for rentals from businesses where the games are loaned by individuals is a largely unexplored area that may pose several advantages over current rental services.   
 
-A large benefit is the prospect of a network of affordable rental games that can cover more than just the major cities. This can be a deal breaker for those looking into getting into the board gaming hobby as buying games can be expensive and shipping is becoming costly. Having insight into what type of games that are availiable locally can help those who are either on a budget, are new to the hobby or just want to try out new games without having to buy could have a cheaper alternative through renting boardgames through designated stores where stock is generally supplied by fellow gamers.   
+A large benefit is the prospect of a network of affordable rental games that can cover more than just the major cities. This can be a deal breaker for those looking into getting into the board gaming hobby as buying games can be expensive and shipping is becoming costly. Having insight into what type of games that are available locally can help those who are either on a budget, are new to the hobby or just want to try out new games without having to buy could have a cheaper alternative through renting boardgames through designated stores where stock is generally supplied by fellow gamers.   
 
 Another benefit is that is can be a low risk method of revenue for a business as it won't be required to buy and ship stock. Apart from the space that will be required to store game, this rental service can be operated in tandem with their current services which may only require small training or practices with current personal.  
 
 ### <u>Why solve this problem?</u>
 
-As of 2022, the board game industry pulled in \$3.13 billion in revenue with an projection of increase to \$3.63 billion in 2023. This shows that board gaming as an industry is increasing at a high level, where 57% of gamers in a survey indicating that they own between 1-25 board/card games with 22% of total people surveyed spending over \$1,000 each year on new games (Georgiev, 2023).   
+As of 2022, the board game industry pulled in \$3.13 billion in revenue with an projection of increase to \$3.63 billion in 2023. This shows that board gaming as an industry is increasing at a fast rate, where 57% of gamers in a survey indicating that they own between 1-25 board/card games with 22% of total people surveyed spending over \$1,000 each year on new games (Georgiev, 2023).   
 
 Not only is board gaming booming as a business, it also brings with it potential medical benefits. A literature review supplied by BioPsychoSocial Medicine indicates that out of 83 relevent articles, there have been multiple randomized trials that show evidence where more traditional board games, like chess, have shown to reduce depression and improve cognitive impairment (Nakao, 2019). It also helps to promote teamwork between people, stimulate creativity, enhance problem-solving and critical thinking and is an excellent tool for social interaction.   
 
-As explored, we have discussed that not only is boardgaming a viable business, it also brings with it positive health and social benefits. However as not everyone has the space or money to spend on board games, this is where a rental service for board games that could provide a larger network so that people are able to access the hobby at low cost.
+As explored, we have discussed that not only is boardgaming a viable business, it also brings with it positive health and social benefits. However as not everyone has the space or money to spend on board games, this is where a rental service for board games that could provide a larger network so that people are able to access the hobby at a low cost.
 
 ### <u>Why PostgreSQL was chosen for this API </u>
 The chosen database management system is PostgreSQL, which has a long development history starting as far as 1986 when it was first developed and has been made open source with a large community contributing to adding extra features and functionality (Peterson, 2023).    
@@ -168,7 +168,8 @@ Flask-bcrypt is a package that provides functionality to convert a string with a
 This package is for implementing the use of JWT (JSON Web Token) for authorization purposes. A JWT can be generated for an authenticated user which can in turn be provided back to the API which will check if it is a valid JWT and optionally if the identity of the owner of the JWT still exists in the database. While this is a secure way of authorization as the token is only stored on the client's side, this makes it difficult to log out a user, but for the purposes of this API is appropriate as storing user login information is not required (flask-jwt-extended.readthedocs.io, 2023).
 
 ### <u>Entities Relationship Diagram (ERD)</u>
-![ERD of boardgame rental service database](/docs/erd_t2a2.png)
+![ERD of boardgame rental service database](/docs/erd_t2a2.png)   
+
 All tables in the ERD have been normalised up to the third mode, however some duplicated fields were required to be inputted into the 'game_rent_details' table. The reason for the duplicated fields in 'game_rent_details', where it takes fields from 'users' and 'games', is to prevent a deletion anomalie, where if a user either updates their information or deletes their account entirely, a record of crucial information is still maintained for past rentals of boardgames, which can also happen if a game is deleted. As a game record also contains the store id, a record of the store name and address is also need in case that the store deletes their account.   
 
 Keeping copies of these fields is important for record keeping as it allows us to maintain integrity of past rentals of board games, but also keeps accurate information which could be necessary for financial or taxation purposes. 
@@ -246,7 +247,7 @@ game_designers = db.relationship('GameDesigner', backref='game', cascade='all, d
 game_categories = db.relationship('GameCategory', backref='game', cascade='all, delete')
 game_rent_details = db.relationship('GameRentDetail', backref='game')
 ```
-There fields, that use the relationship method of a SQLAlchemy instance in the form of 'db' shows that three fields relate to other models which will contain their own field that will refer back to these fields. In the relationship parameters, a model name is specificed, followed by the name of the field that this will relate to (e.g. game_designers forms a connection to game, that is located in the GameDesigner model) through the use of 'backref'. Next we'll discuss how models relate to each other in this API by using our Game model as an example.
+These fields, that use the relationship method of a SQLAlchemy instance in the form of 'db' shows that three fields relate to other models which will contain their own field that will refer back to these fields. In the relationship parameters, a model name is specificed, followed by the name of the field that this will relate to (e.g. game_designers forms a connection to game, that is located in the GameDesigner model) through the use of 'backref'. Next we'll discuss how models relate to each other in this API by using our Game model as an example.
 
 #### Games
 ```python
@@ -393,7 +394,7 @@ The GameRentDetail model contains two foreign keys that link up to the primary k
 
 In the early stages of the project before any coding or documentation was to progress, a task organisation system was needed to split up the project into smaller and more manageable task. For this, a Kanban style Trello board was selected as it provides the functionality needed for this project. To begin with, all major sections of the project and documentation were identified:   
 ![task list 1st part](./docs/r10%20trello/tasks1.png)
-![task list 2nd part](./docs/r10%20trello/tasks2.png)
+![task list 2nd part](./docs/r10%20trello/tasks2.png)   
 With each task, a checklist of items was created to break the task down into smaller sections:   
 ![task checklist](./docs/r10%20trello/task%20checklist.png)   
 In these individual tasks cards, a complexity rating, a priority scale and a due date were assigned to further organise the order of the tasks:   
