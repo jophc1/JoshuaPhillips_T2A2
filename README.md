@@ -391,32 +391,99 @@ The GameRentDetail model contains two foreign keys that link up to the primary k
 
 ### <u>Project management and task allocation methods</u>
 
-Trello board
-
-User stories
-
+In the early stages of the project before any coding or documentation was to progress, a task organisation system was needed to split up the project into smaller and more manageable task. For this, a Kanban style Trello board was selected as it provides the functionality needed for this project. To begin with, all major sections of the project and documentation were identified:   
+![task list 1st part](./docs/r10%20trello/tasks1.png)
+![task list 2nd part](./docs/r10%20trello/tasks2.png)
+With each task, a checklist of items was created to break the task down into smaller sections:   
+![task checklist](./docs/r10%20trello/task%20checklist.png)   
+In these individual tasks cards, a complexity rating, a priority scale and a due date were assigned to further organise the order of the tasks:   
+![task priority, complexity, date](./docs/r10%20trello/complex%20priority%20date.png)   
+The task cards can now be assigned and ordered on the trello board:   
+![task list construction](./docs/r10%20trello/task%20construction.png)   
+To help identify key functionalities of the API, a set of user stories was collected:   
+![user stories 1st part](./docs/r10%20trello/user%20stories%201.png)
+![user stories 2nd part](./docs/r10%20trello/user%20stories%202.png)   
+Within each user story, the tasks and routes were identified that would be needed to be implemented into the API:   
+![user story construction](./docs/r10%20trello/user%20story%20construction.png)   
+Now that all tasks and user stories have been identified and cataloged, the project could now progress into the documentation and coding development phase, where each task or user story was examined at different times of the project to make sure that the timeline was being meet. Generally at a single time only only task card would be worked on depending on priority and date due, which when complete would be moved to the 'Finished' column and a new task would be set to 'In Progress'.    
+Overall the trello board is a useful tool as it breaks down complex tasks, helps brainstorm ideas and generally reduces development time of a project.   
+![trello board overview](./docs/r10%20trello/trello%20overview.png)
 
 #### <u>References</u>
 
+Bharadwaj, A., 2022. Python | Build a REST API using Flask. [Online] 
+Available at: https://www.geeksforgeeks.org/python-build-a-rest-api-using-flask/
+[Accessed 1 July 2023].   
+
+Countryman, M., 2023. Flask-Bcrypt. [Online] 
+Available at: https://pypi.org/project/Flask-Bcrypt/
+[Accessed 1 July 2023].   
+
 Dhruv, S., 2019. PostgreSQL Advantages and Disadvantages. [Online] 
 Available at: https://www.aalpha.net/blog/pros-and-cons-of-using-postgresql-for-application-development/
-[Accessed 30 June 2023].
+[Accessed 30 June 2023].   
 
 digital ocean, 2022. ACID Compliance. [Online] 
 Available at: https://docs.digitalocean.com/glossary/acid/
-[Accessed 30 June 2023].
+[Accessed 30 June 2023].   
+
+Ellingwood, J., 2023. What is an ORM?. [Online] 
+Available at: https://www.prisma.io/dataguide/types/relational/what-is-an-orm
+[Accessed 1 July 2023].   
+
+flask-jwt-extended.readthedocs.io, 2023. Basic Usage. [Online] 
+Available at: https://flask-jwt-extended.readthedocs.io/en/stable/basic_usage.html
+[Accessed 1 July 2023].   
+
+flask-sqlalchemy.palletsprojects.com, 2023. Flask SQLAlchemy. [Online] 
+Available at: https://flask-sqlalchemy.palletsprojects.com/en/3.0.x/
+[Accessed 1 July 2023].   
 
 Georgiev, D., 2023. 13 Board Game Statistics - All You Need to Know in 2023. [Online] 
 Available at: https://techjury.net/blog/board-game-statistics/
-[Accessed 22 June 2023].
+[Accessed 22 June 2023].   
+
+Liang, M., 2021. Understanding Object-Relational Mapping: Pros, Cons, and Types. [Online] 
+Available at: https://www.altexsoft.com/blog/object-relational-mapping/
+[Accessed 1 July 2023].   
+
+Loria, S., 2023. Flask + marshmallow for beautiful APIs. [Online] 
+Available at: https://pypi.org/project/flask-marshmallow/
+[Accessed 1 July 2023].   
+
+Loria, S., 2023. marshmallow-sqlalchemy. [Online] 
+Available at: https://marshmallow-sqlalchemy.readthedocs.io/en/latest/
+[Accessed 1 July 2023].   
+
+Makai, M., 2022. SQLAlchemy. [Online] 
+Available at: https://www.fullstackpython.com/sqlalchemy.html
+[Accessed 1 July 2023].   
 
 Nakao, M., 2019. Special series on “effects of board games on health education and promotion” board games as a promising tool for health promotion: a review of recent literature. [Online] 
 Available at: https://bpsmedicine.biomedcentral.com/articles/10.1186/s13030-019-0146-3
-[Accessed 22 June 2023].
+[Accessed 22 June 2023].   
+
+Nguyen, M., 2020. Marshmallow: Easy Serialization in Python. [Online] 
+Available at: https://blog.knoldus.com/marshmallow-easy-serialization-in-python/
+[Accessed 1 July 2023].   
 
 Peterson, R., 2023. What is PostgreSQL? Introduction, Advantages & Disadvantages. [Online] 
 Available at: https://www.guru99.com/introduction-postgresql.html
-[Accessed 30 June 2023].
+[Accessed 30 June 2023].   
+
+psycopg.org, 2023. Psycopg – PostgreSQL database adapter for Python. [Online] 
+Available at: https://www.psycopg.org/docs/
+[Accessed 1 July 2023].   
+
+pysql.tecladocode.com, 2023. PostgreSQL Python Libraries: psycopg2 and psycopg2-binary. [Online] 
+Available at: https://pysql.tecladocode.com/section05/lectures/04_psycopg2_vs_psycopg2-binary/
+[Accessed 1 July 2023].   
+
+Sasidharan, 2021. Flask and .env. [Online] 
+Available at: https://dev.to/sasicodes/flask-and-env-22am
+[Accessed 1 July 2023].   
+
+
 
 
 
